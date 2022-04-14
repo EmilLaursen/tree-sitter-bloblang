@@ -1,0 +1,1035 @@
+[
+  {
+    "type": "argValue",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "binary_query",
+          "named": true
+        },
+        {
+          "type": "queryS",
+          "named": true
+        },
+        {
+          "type": "unary_query",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "binary_query",
+    "named": true,
+    "fields": {
+      "left": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "query",
+            "named": true
+          }
+        ]
+      },
+      "operator": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "!=",
+            "named": false
+          },
+          {
+            "type": "%",
+            "named": false
+          },
+          {
+            "type": "&&",
+            "named": false
+          },
+          {
+            "type": "*",
+            "named": false
+          },
+          {
+            "type": "+",
+            "named": false
+          },
+          {
+            "type": "-",
+            "named": false
+          },
+          {
+            "type": "/",
+            "named": false
+          },
+          {
+            "type": "<",
+            "named": false
+          },
+          {
+            "type": "<=",
+            "named": false
+          },
+          {
+            "type": "==",
+            "named": false
+          },
+          {
+            "type": ">",
+            "named": false
+          },
+          {
+            "type": ">=",
+            "named": false
+          },
+          {
+            "type": "|",
+            "named": false
+          },
+          {
+            "type": "||",
+            "named": false
+          }
+        ]
+      },
+      "right": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "query",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "bracketExpression",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "closingBracket",
+          "named": true
+        },
+        {
+          "type": "openingBracket",
+          "named": true
+        },
+        {
+          "type": "query",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "condition",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "binary_query",
+          "named": true
+        },
+        {
+          "type": "queryS",
+          "named": true
+        },
+        {
+          "type": "unary_query",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "context",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "binary_query",
+          "named": true
+        },
+        {
+          "type": "queryS",
+          "named": true
+        },
+        {
+          "type": "unary_query",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "expression",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "binary_query",
+          "named": true
+        },
+        {
+          "type": "queryS",
+          "named": true
+        },
+        {
+          "type": "unary_query",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "functionArgsExpression",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "namedArgExpression",
+          "named": true
+        },
+        {
+          "type": "query",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "functionExpression",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "function",
+          "named": true
+        },
+        {
+          "type": "functionArgsExpression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "ifExpression",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "condition",
+          "named": true
+        },
+        {
+          "type": "query",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "importStmt",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "quotedString",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "key",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "binary_query",
+          "named": true
+        },
+        {
+          "type": "queryS",
+          "named": true
+        },
+        {
+          "type": "unary_query",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "lambdaExpression",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "contextName",
+          "named": true
+        },
+        {
+          "type": "query",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "letStmt",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "query",
+          "named": true
+        },
+        {
+          "type": "quotedString",
+          "named": true
+        },
+        {
+          "type": "varName",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "litBool",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "litDynamicArray",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "value",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "litDynamicObject",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "key",
+          "named": true
+        },
+        {
+          "type": "value",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "litNumber",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "num",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "literal",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "litBool",
+          "named": true
+        },
+        {
+          "type": "litDynamicArray",
+          "named": true
+        },
+        {
+          "type": "litDynamicObject",
+          "named": true
+        },
+        {
+          "type": "litNull",
+          "named": true
+        },
+        {
+          "type": "litNumber",
+          "named": true
+        },
+        {
+          "type": "quotedString",
+          "named": true
+        },
+        {
+          "type": "tripleQuotedString",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "mapStmt",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "letStmt",
+          "named": true
+        },
+        {
+          "type": "metaStmt",
+          "named": true
+        },
+        {
+          "type": "plainMappingStmt",
+          "named": true
+        },
+        {
+          "type": "quotedString",
+          "named": true
+        },
+        {
+          "type": "varName",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "matchCase",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "condition",
+          "named": true
+        },
+        {
+          "type": "expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "matchExpression",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "context",
+          "named": true
+        },
+        {
+          "type": "matchCase",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "metaStmt",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "query",
+          "named": true
+        },
+        {
+          "type": "quotedString",
+          "named": true
+        },
+        {
+          "type": "varName",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "namedArgExpression",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "argName",
+          "named": true
+        },
+        {
+          "type": "argValue",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "path",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "pathLiteralSegment",
+          "named": true
+        },
+        {
+          "type": "quotedPathLiteralSegment",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "plainMappingStmt",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "path",
+          "named": true
+        },
+        {
+          "type": "query",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "program",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "statement",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "query",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "binary_query",
+          "named": true
+        },
+        {
+          "type": "queryS",
+          "named": true
+        },
+        {
+          "type": "unary_query",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "queryS",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "bracketExpression",
+          "named": true
+        },
+        {
+          "type": "fieldLiteralRoot",
+          "named": true
+        },
+        {
+          "type": "functionExpression",
+          "named": true
+        },
+        {
+          "type": "ifExpression",
+          "named": true
+        },
+        {
+          "type": "lambdaExpression",
+          "named": true
+        },
+        {
+          "type": "literal",
+          "named": true
+        },
+        {
+          "type": "matchExpression",
+          "named": true
+        },
+        {
+          "type": "pathLiteralSegment",
+          "named": true
+        },
+        {
+          "type": "query",
+          "named": true
+        },
+        {
+          "type": "quotedPathLiteralSegment",
+          "named": true
+        },
+        {
+          "type": "varLit",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "quotedPathLiteralSegment",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "escape_sequence",
+          "named": true
+        },
+        {
+          "type": "string_fragment",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "quotedString",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "escape_sequence",
+          "named": true
+        },
+        {
+          "type": "string_fragment",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "statement",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "importStmt",
+          "named": true
+        },
+        {
+          "type": "letStmt",
+          "named": true
+        },
+        {
+          "type": "mapStmt",
+          "named": true
+        },
+        {
+          "type": "metaStmt",
+          "named": true
+        },
+        {
+          "type": "plainMappingStmt",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "tripleQuotedString",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "unary_query",
+    "named": true,
+    "fields": {
+      "operand": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "query",
+            "named": true
+          }
+        ]
+      },
+      "operator": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "-",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "value",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "binary_query",
+          "named": true
+        },
+        {
+          "type": "queryS",
+          "named": true
+        },
+        {
+          "type": "unary_query",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "varLit",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "varName",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "\n",
+    "named": false
+  },
+  {
+    "type": "!",
+    "named": false
+  },
+  {
+    "type": "!=",
+    "named": false
+  },
+  {
+    "type": "\"",
+    "named": false
+  },
+  {
+    "type": "\"\"\"",
+    "named": false
+  },
+  {
+    "type": "$",
+    "named": false
+  },
+  {
+    "type": "%",
+    "named": false
+  },
+  {
+    "type": "&&",
+    "named": false
+  },
+  {
+    "type": "(",
+    "named": false
+  },
+  {
+    "type": ")",
+    "named": false
+  },
+  {
+    "type": "*",
+    "named": false
+  },
+  {
+    "type": "+",
+    "named": false
+  },
+  {
+    "type": ",",
+    "named": false
+  },
+  {
+    "type": "-",
+    "named": false
+  },
+  {
+    "type": "->",
+    "named": false
+  },
+  {
+    "type": ".",
+    "named": false
+  },
+  {
+    "type": "/",
+    "named": false
+  },
+  {
+    "type": ":",
+    "named": false
+  },
+  {
+    "type": "<",
+    "named": false
+  },
+  {
+    "type": "<=",
+    "named": false
+  },
+  {
+    "type": "=",
+    "named": false
+  },
+  {
+    "type": "==",
+    "named": false
+  },
+  {
+    "type": "=>",
+    "named": false
+  },
+  {
+    "type": ">",
+    "named": false
+  },
+  {
+    "type": ">=",
+    "named": false
+  },
+  {
+    "type": "[",
+    "named": false
+  },
+  {
+    "type": "]",
+    "named": false
+  },
+  {
+    "type": "argName",
+    "named": true
+  },
+  {
+    "type": "closingBracket",
+    "named": true
+  },
+  {
+    "type": "comment",
+    "named": true
+  },
+  {
+    "type": "contextName",
+    "named": true
+  },
+  {
+    "type": "else",
+    "named": false
+  },
+  {
+    "type": "else if",
+    "named": false
+  },
+  {
+    "type": "escape_sequence",
+    "named": true
+  },
+  {
+    "type": "false",
+    "named": false
+  },
+  {
+    "type": "fieldLiteralRoot",
+    "named": true
+  },
+  {
+    "type": "function",
+    "named": true
+  },
+  {
+    "type": "if",
+    "named": false
+  },
+  {
+    "type": "import",
+    "named": false
+  },
+  {
+    "type": "let",
+    "named": false
+  },
+  {
+    "type": "litNull",
+    "named": true
+  },
+  {
+    "type": "map",
+    "named": false
+  },
+  {
+    "type": "match",
+    "named": false
+  },
+  {
+    "type": "meta",
+    "named": false
+  },
+  {
+    "type": "num",
+    "named": true
+  },
+  {
+    "type": "openingBracket",
+    "named": true
+  },
+  {
+    "type": "pathLiteralSegment",
+    "named": true
+  },
+  {
+    "type": "snakeCase",
+    "named": true
+  },
+  {
+    "type": "string_fragment",
+    "named": true
+  },
+  {
+    "type": "true",
+    "named": false
+  },
+  {
+    "type": "varName",
+    "named": true
+  },
+  {
+    "type": "{",
+    "named": false
+  },
+  {
+    "type": "|",
+    "named": false
+  },
+  {
+    "type": "||",
+    "named": false
+  },
+  {
+    "type": "}",
+    "named": false
+  }
+]

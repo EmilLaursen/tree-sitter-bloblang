@@ -1,0 +1,313 @@
+=====
+import dummy
+=====
+
+import "IMPLEMENT_ME"
+import "IMPLEMENT_ME"
+
+---
+
+(program
+    (statement
+        (importStmt
+        (quotedString (string_fragment))))
+    (statement
+        (importStmt
+        (quotedString (string_fragment)))))
+=====
+import quoted
+=====
+
+import "./common_maps.blobl" 
+
+---
+
+(program
+    (statement
+        (importStmt
+        (quotedString (string_fragment)))))
+
+
+=====
+plain mapping literal variable
+=====
+
+some_shit = $asdasg_ASD
+
+---
+
+(program
+(statement
+    (plainMappingStmt
+    (path (pathLiteralSegment))
+    (query
+        (varLit
+        (varName))))))
+
+=====
+plain mapping path segments
+=====
+
+root.funk.mamma = this.trololo
+
+---
+
+(program
+(statement
+    (plainMappingStmt
+        (path (pathLiteralSegment)
+              (pathLiteralSegment)
+              (pathLiteralSegment)
+        )
+        (query (fieldLiteralRoot)
+               (pathLiteralSegment)
+        )
+    )
+)
+)
+
+=====
+plain mapping path quoted segments
+=====
+
+root."foo.bar".baz = this."buz bev".fub
+
+---
+
+(program
+(statement
+    (plainMappingStmt
+        (path (pathLiteralSegment)
+              (quotedPathLiteralSegment (string_fragment))
+              (pathLiteralSegment)
+        )
+        (query (fieldLiteralRoot)
+               (quotedPathLiteralSegment (string_fragment))
+               (pathLiteralSegment)
+        )
+    )
+))
+
+=====
+query parser match expression
+=====
+
+
+root.baz = match true {
+    false => true,
+    true => false,
+    _ => false,
+}
+
+---
+
+(program
+(statement
+    (plainMappingStmt
+    (path (pathLiteralSegment) (pathLiteralSegment))
+    (query
+        (matchExpression
+            (query (literal (litBool)))
+            (matchCase (condition (literal (litBool))) (expression (literal (litBool))))
+            (matchCase (condition (literal (litBool))) (expression (literal (litBool))))
+            (matchCase (condition) (expression (literal (litBool))))
+        )
+    ))
+)
+)
+
+=====
+query parser if expression
+=====
+
+root.baz = if false {
+    true
+}
+---
+
+(program
+(statement
+    (plainMappingStmt
+    (path (pathLiteralSegment) (pathLiteralSegment))
+    (query
+        (ifExpression (condition  (literal (litBool)))
+                      (query  (literal (litBool)))
+        )
+    )
+    )
+)
+)
+=====
+query parser if expression else if else if
+=====
+
+root.baz = if false {
+    true
+} else if true {
+  false
+} else if true {
+  false
+}
+---
+
+(program
+(statement
+    (plainMappingStmt
+    (path (pathLiteralSegment) (pathLiteralSegment))
+    (query
+        (ifExpression (condition  (literal (litBool)))
+                      (query  (literal (litBool)))
+                      (condition  (literal (litBool)))
+                      (query  (literal (litBool)))
+                      (condition  (literal (litBool)))
+                      (query  (literal (litBool)))
+        )
+    )
+    )
+)
+)
+
+=====
+query parser if expression else if else if else
+=====
+
+root.baz = if false {
+    true
+} else if false {
+    false
+} else if false {
+    null
+} else {
+  false
+}
+
+---
+
+(program
+(statement
+    (plainMappingStmt
+    (path (pathLiteralSegment) (pathLiteralSegment))
+    (query
+        (ifExpression (condition  (literal (litBool)))
+                      (query  (literal (litBool)))
+                      (condition  (literal (litBool)))
+                      (query  (literal (litBool)))
+                      (condition  (literal (litBool)))
+                      (query  (literal (litNull)))
+                      (query  (literal (litBool)))
+        )
+    )
+    )
+)
+)
+
+=====
+let statement
+=====
+
+let mY_Var = $trololo
+
+---
+
+(program
+(statement
+    (letStmt
+    (varName)
+    (query
+        (varLit
+        (varName))))))
+
+=====
+meta statement
+=====
+
+meta mY_Var = $trololo
+
+---
+
+(program
+(statement
+    (metaStmt
+    (varName)
+    (query
+        (varLit
+        (varName))))))
+
+=====
+map statement
+=====
+
+map my_Map_Name {
+ some_shit = $x
+}
+
+---
+
+(program
+(statement
+    (mapStmt
+    (varName)
+    (plainMappingStmt
+    (path (pathLiteralSegment))
+    (query
+        (varLit
+        (varName)))))))
+
+
+=====
+lambda expression
+=====
+
+root = x -> null
+
+---
+
+(program
+(statement
+    (plainMappingStmt (path (pathLiteralSegment))
+    (query
+        (lambdaExpression (contextName) (query (literal (litNull)))))
+    )
+    )
+)
+
+=====
+lambda expression associativity
+=====
+
+root = x -> x.0
+
+---
+
+(program
+(statement
+    (plainMappingStmt (path (pathLiteralSegment))
+    (query
+        (lambdaExpression (contextName) (query (fieldLiteralRoot)))
+        (pathLiteralSegment)
+    )
+    )
+))
+
+=====
+bracket expression
+=====
+
+root = ( x -> null )
+
+---
+
+(program
+(statement
+    (plainMappingStmt (path (pathLiteralSegment))
+    (query
+        (bracketExpression (openingBracket)
+            (query
+                (lambdaExpression (contextName) (query (literal (litNull))))
+            )
+            (closingBracket)
+        )
+        )
+    )
+    )
+)

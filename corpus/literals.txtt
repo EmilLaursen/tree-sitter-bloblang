@@ -1,0 +1,53 @@
+====
+triple quoted string
+====
+
+root = """
+tro lolo what
+yeehaw root.x = this.y
+"""
+---
+
+(program (statement
+    (plainMappingStmt
+        (path (pathLiteralSegment))
+        (query (literal (tripleQuotedString)))
+    )
+))
+====
+match newline delimted cases
+====
+root = match {
+    1 => 2
+    1 => 2
+    1 => 2,
+    1 => 2
+}
+---
+   (program
+      (statement
+        (plainMappingStmt
+          (path
+            (pathLiteralSegment))
+          (query
+            (matchExpression
+              (matchCase
+                (condition
+                  (fieldLiteralRoot))
+                (expression
+                  (fieldLiteralRoot)))
+              (matchCase
+                (condition
+                  (fieldLiteralRoot))
+                (expression
+                  (fieldLiteralRoot)))
+              (matchCase
+                (condition
+                  (fieldLiteralRoot))
+                (expression
+                  (fieldLiteralRoot)))
+              (matchCase
+                (condition
+                  (fieldLiteralRoot))
+                (expression
+                  (fieldLiteralRoot))))))))

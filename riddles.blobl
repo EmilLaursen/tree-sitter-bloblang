@@ -1,0 +1,13 @@
+# bloblang riddles
+
+## Input
+[
+    [6],
+    [[6],[7],[[8], [9]]]
+]
+
+## number literal associativity
+root = 1.2.1
+
+## lambda associativity
+root = x -> x.0
