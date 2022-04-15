@@ -54,5 +54,20 @@ root = match {
 ====
 literal number
 ====
-root = 1.2.0.0
+root.x = 1.2.0.0
+---
+(program
+       (assignment
+         (path
+           (pathLiteralSegment)
+           (pathLiteralSegment))
+         (query
+           (query
+             (litNumber))
+           (pathLiteralSegment)
+           (pathLiteralSegment))))
+====
+literal addition number
+====
+root.x = 1 + 1
 ---

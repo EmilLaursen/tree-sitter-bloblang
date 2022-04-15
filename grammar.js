@@ -139,7 +139,7 @@ module.exports = grammar({
           $.query,
           repeat1(
             seq(
-              ".",
+              token("."),
               choice(
                 seq("(", $.query, ")"),
                 $.functionExpression,
@@ -152,38 +152,6 @@ module.exports = grammar({
           )
         ))
       ),
-
-    _rootQuery: ($) =>
-        choice(
-          $.variable,
-          $._literal,
-          $.matchExpression,
-          $.ifExpression,
-          $.lambdaExpression,
-          $.bracketExpression,
-          $.functionExpression,
-          alias($.firstQueryPath, $.fieldLiteralRoot)
-      ),
-
-
-    _chain: ($) =>
-      prec.right(
-        repeat1(
-          seq(
-            ".",
-            choice(
-              seq("(", $.query, ")"),
-              $.functionExpression,
-              choice(
-                alias($.varName, $.pathLiteralSegment),
-                alias($.quotedString, $.quotedPathLiteralSegment)
-              )
-            )
-          )
-        )
-      ),
-
-    _queryS: ($) => seq($.query, optional($._chain)),
 
     functionExpression: ($) =>
       seq(alias($.snakeCase, $.function), $.functionArgsExpression),
@@ -291,9 +259,8 @@ module.exports = grammar({
     litNull: ($) => token("null"),
 
 
-
     // we remove the optional `-` vs bloblang parsing
-    litNumber: ($) => $._num,
+    litNumber: ($) => /[0-9]+(\.[0-9]+)?/,
     // prec.right(10, seq($.num, optional(seq(".", $.num)))),
 
     variable: ($) => seq("$", $.varName),
@@ -332,6 +299,6 @@ module.exports = grammar({
     firstQueryPath: ($) => /[A-Za-z_][A-Za-z0-9_]*/,
     varName: ($) => /[A-Za-z0-9_]+/,
     snakeCase: ($) => /[a-z0-9_]+/,
-    _num: ($) => /[0-9]+(.[0-9]+)?/,
+    _num: ($) => /[0-9]+(\.[0-9]+)?/,
   },
 });
