@@ -17,25 +17,26 @@ module.exports = grammar({
   name: "bloblang",
 
   extras: ($) => [/\s/, $.comment],
-  // supertypes: $ => [
-  //   $.queryS,
-  // ],
+  supertypes: $ => [
+    $._statement,
+  ],
+
 
   rules: {
     // TODO: add the actual grammar rules
-    program: ($) => seq(repeat($.statement)),
+    program: ($) => seq(repeat($._statement)),
 
-    word: ($) => choice($.snakeCase, $.varName),
     comment: ($) => token(/#.*\n/),
+    word: ($) => choice($.snakeCase, $.varName),
 
     // mapping_parser.go : func parseExecutor(pCtx Context) Func {
-    statement: ($) =>
+    _statement: ($) =>
       choice(
         $.importStmt,
         $.mapStmt,
         $.letStmt,
         $.metaStmt,
-        $.plainMappingStmt
+        $.assignment
       ),
 
     importStmt: ($) => seq("import", $.quotedString),
@@ -45,7 +46,7 @@ module.exports = grammar({
         "map",
         choice($.quotedString, $.varName),
         "{",
-        choice($.letStmt, $.metaStmt, $.plainMappingStmt),
+        choice($.letStmt, $.metaStmt, $.assignment),
         "}"
       ),
 
@@ -54,7 +55,7 @@ module.exports = grammar({
     metaStmt: ($) =>
       seq("meta", choice($.quotedString, $.varName), "=", $.query),
 
-    plainMappingStmt: ($) => seq($.path, "=", $.query),
+    assignment: ($) => seq($.path, "=", $.query),
 
     // TODO: test plain mapping stmt with path again!
     path: ($) =>
@@ -97,7 +98,7 @@ module.exports = grammar({
     unary_query: ($) =>
       prec(
         PREC.unary,
-        seq(field("operator", choice("-" )), field("operand", $.query))
+        seq(field("operator", choice("-", "!")), field("operand", $.query))
       ),
 
     binary_query: ($) => {
@@ -122,23 +123,21 @@ module.exports = grammar({
       );
     },
 
-    query: ($) => choice($.queryS, $.unary_query, $.binary_query),
-
-    queryS: ($) =>
-      prec.left(
-        seq(
-          optional("!"),
-          choice(
-            $.varLit,
-            $.literal,
-            $.matchExpression,
-            $.ifExpression,
-            $.lambdaExpression,
-            $.bracketExpression,
-            $.functionExpression,
-            alias($.varName, $.fieldLiteralRoot)
-          ),
-          repeat(
+    query: ($) =>
+      choice(
+        $.variable,
+        $._literal,
+        $.matchExpression,
+        $.ifExpression,
+        $.lambdaExpression,
+        $.bracketExpression,
+        $.functionExpression,
+        $.unary_query,
+        $.binary_query,
+        alias($.firstQueryPath, $.fieldLiteralRoot),
+        prec.right(seq(
+          $.query,
+          repeat1(
             seq(
               ".",
               choice(
@@ -151,8 +150,40 @@ module.exports = grammar({
               )
             )
           )
+        ))
+      ),
+
+    _rootQuery: ($) =>
+        choice(
+          $.variable,
+          $._literal,
+          $.matchExpression,
+          $.ifExpression,
+          $.lambdaExpression,
+          $.bracketExpression,
+          $.functionExpression,
+          alias($.firstQueryPath, $.fieldLiteralRoot)
+      ),
+
+
+    _chain: ($) =>
+      prec.right(
+        repeat1(
+          seq(
+            ".",
+            choice(
+              seq("(", $.query, ")"),
+              $.functionExpression,
+              choice(
+                alias($.varName, $.pathLiteralSegment),
+                alias($.quotedString, $.quotedPathLiteralSegment)
+              )
+            )
+          )
         )
       ),
+
+    _queryS: ($) => seq($.query, optional($._chain)),
 
     functionExpression: ($) =>
       seq(alias($.snakeCase, $.function), $.functionArgsExpression),
@@ -180,7 +211,10 @@ module.exports = grammar({
       ),
 
     lambdaExpression: ($) =>
-      seq(alias($.varName, $.contextName), "->", $.query),
+      prec(
+        PREC.primary,
+        seq(alias($.varName, $.contextName), token("->"), $.query)
+      ),
 
     matchExpression: ($) =>
       prec(
@@ -232,7 +266,7 @@ module.exports = grammar({
     // TripleQuoteString(), TODO: not done.... ?
     // dynamicArrayParser(pCtx),
     // dynamicObjectParser(pCtx),
-    literal: ($) =>
+    _literal: ($) =>
       choice(
         $.litBool,
         $.litNumber,
@@ -256,11 +290,13 @@ module.exports = grammar({
     litBool: ($) => choice("true", "false"),
     litNull: ($) => token("null"),
 
-    // we remove the optional `-` vs bloblang parsing
-    litNumber: ($) =>
-      prec.left(2, seq($.num, optional(seq(".", $.num)))),
 
-    varLit: ($) => seq("$", $.varName),
+
+    // we remove the optional `-` vs bloblang parsing
+    litNumber: ($) => $._num,
+    // prec.right(10, seq($.num, optional(seq(".", $.num)))),
+
+    variable: ($) => seq("$", $.varName),
 
     // TODO: from js parser? will this work?
     quotedString: ($) =>
@@ -292,8 +328,10 @@ module.exports = grammar({
           )
         )
       ),
+
+    firstQueryPath: ($) => /[A-Za-z_][A-Za-z0-9_]*/,
     varName: ($) => /[A-Za-z0-9_]+/,
     snakeCase: ($) => /[a-z0-9_]+/,
-    num: ($) => /[0-9]+/,
+    _num: ($) => /[0-9]+(.[0-9]+)?/,
   },
 });

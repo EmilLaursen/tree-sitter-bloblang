@@ -51,3 +51,8 @@ root = match {
                   (fieldLiteralRoot))
                 (expression
                   (fieldLiteralRoot))))))))
+====
+literal number
+====
+root = 1.2.0.0
+---
