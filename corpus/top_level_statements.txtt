@@ -1,0 +1,103 @@
+====
+meta statement
+====
+meta "trolo" = this
+meta 1xfunk = this.is.great
+meta 000 = 1
+meta 0 = $1
+---
+     (program
+       (metaStmt
+         (quotedString)
+         (query
+           (firstPathSegment)))
+       (metaStmt
+         (varName)
+         (query
+           (query (query (firstPathSegment))
+           (pathSegment             (varName)))
+           (pathSegment           (varName))))
+        (metaStmt
+            (varName)
+            (query (number)))
+        (metaStmt
+            (varName)
+            (query (variable)))
+    )
+
+=====
+import statement
+=====
+import "IMPLEMENT_ME"
+import "./common_maps.blobl"
+---
+(program
+        (importStmt        (quotedString))
+        (importStmt        (quotedString))
+)
+=====
+let statement
+=====
+let mY_Var = $trololo
+---
+
+(program
+    (letStmt
+    (varName)
+    (query
+        (variable))))
+=====
+map statement
+=====
+map my_Map_Name {
+ some_shit = $x
+ let x = 010.0
+}
+---
+     (program
+       (mapStmt
+         (varName)
+         (assignment
+           (path
+             (pathSegment
+               (varName)))
+           (query
+             (variable)))
+         (letStmt
+           (varName)
+           (query
+             (number)))))
+====
+assignment statement
+====
+0.1.2.3 = 0.1.2
+here."is".good.0 = true
+---
+     (program
+       (assignment
+         (path
+           (pathSegment
+             (varName))
+           (pathSegment
+             (varName))
+           (pathSegment
+             (varName))
+           (pathSegment
+             (varName)))
+         (query
+           (query
+             (number))
+           (pathSegment
+             (varName))))
+       (assignment
+         (path
+           (pathSegment
+             (varName))
+           (quotedPathSegment
+             (quotedString))
+           (pathSegment
+             (varName))
+           (pathSegment
+             (varName)))
+         (query
+           (bool))))

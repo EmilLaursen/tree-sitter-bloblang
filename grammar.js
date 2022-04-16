@@ -1,5 +1,6 @@
 const PREC = {
-  primary: 7,
+  primary: 8,
+  lambda: 7,
   unary: 6,
   multiplicative: 5,
   additive: 4,
@@ -13,14 +14,16 @@ multiplicative_operators = ["*", "/", "%"];
 additive_operators = ["+", "-", "|"];
 comparative_operators = ["==", "!=", "<", "<=", ">", ">="];
 
+identifier = /[A-Za-z0-9_]+/;
+snake_case = /[a-z0-9_]+/;
+number = /[0-9]+(\.[0-9]+)?/;
+
 module.exports = grammar({
   name: "bloblang",
 
   extras: ($) => [/\s/, $.comment],
-  supertypes: $ => [
-    $._statement,
-  ],
-
+  supertypes: ($) => [$._statement],
+  inline: ($) => [$.string_fragment],
 
   rules: {
     // TODO: add the actual grammar rules
@@ -31,22 +34,18 @@ module.exports = grammar({
 
     // mapping_parser.go : func parseExecutor(pCtx Context) Func {
     _statement: ($) =>
-      choice(
-        $.importStmt,
-        $.mapStmt,
-        $.letStmt,
-        $.metaStmt,
-        $.assignment
-      ),
+      choice($.importStmt, $.mapStmt, $.letStmt, $.metaStmt, $.assignment),
 
     importStmt: ($) => seq("import", $.quotedString),
 
+    // TODO: allow meta statements here? see bloblang parser source. They are disabled i believe
+    // meta statements disabled atm in mapParser
     mapStmt: ($) =>
       seq(
         "map",
         choice($.quotedString, $.varName),
         "{",
-        choice($.letStmt, $.metaStmt, $.assignment),
+        repeat(choice($.letStmt, $.assignment)),
         "}"
       ),
 
@@ -58,22 +57,14 @@ module.exports = grammar({
     assignment: ($) => seq($.path, "=", $.query),
 
     // TODO: test plain mapping stmt with path again!
-    path: ($) =>
-      seq(
-        alias($.varName, $.pathLiteralSegment),
-        optional(
-          repeat(
-            seq(
-              ".",
-              choice(
-                alias($.varName, $.pathLiteralSegment),
-                alias($.quotedString, $.quotedPathLiteralSegment)
-              )
-            )
-          )
-        )
-        // see mapping_parser.go -> pathParser
-      ),
+    // see mapping_parser.go -> pathParser
+    // NOTE: can not start with quoted path segment? why? check?
+    path: ($) => seq($.pathSegment, repeat(seq(".", $._fullPathSegment))),
+
+    firstPathSegment: ($) => token(/[A-Za-z_][A-Za-z0-9_]*/),
+    pathSegment: ($) => $.varName,
+    quotedPathSegment: ($) => $.quotedString,
+    _fullPathSegment: ($) => choice($.pathSegment, $.quotedPathSegment),
 
     // rootParser := parseWithTails(Expect(
     // 	OneOf(
@@ -134,42 +125,44 @@ module.exports = grammar({
         $.functionExpression,
         $.unary_query,
         $.binary_query,
-        alias($.firstQueryPath, $.fieldLiteralRoot),
-        prec.right(seq(
-          $.query,
-          repeat1(
-            seq(
-              token("."),
-              choice(
-                seq("(", $.query, ")"),
-                $.functionExpression,
+        alias($.varName, $.firstPathSegment),
+        // $.firstPathSegment,
+        prec.right(
+          PREC.primary,
+          seq(
+            $.query,
+            repeat1(
+              seq(
+                token("."),
                 choice(
-                  alias($.varName, $.pathLiteralSegment),
-                  alias($.quotedString, $.quotedPathLiteralSegment)
+                  alias(seq("(", $.query, ")"), $.nameTheContext),
+                  alias($.functionExpression, $.method),
+                  $._fullPathSegment
                 )
               )
             )
           )
-        ))
+        )
       ),
 
     functionExpression: ($) =>
-      seq(alias($.snakeCase, $.function), $.functionArgsExpression),
-
-    functionArgsExpression: ($) =>
       seq(
-        "(",
-        optional(
+        $.functionName,
+         optional(
           seq(
-            choice($.query, $.namedArgExpression),
-            repeat(seq(",", choice($.query, $.namedArgExpression)))
-          )
+            $._argExpression,
+            repeat(seq(",", $._argExpression))
+          ),
         ),
-        ")"
+        ")",
       ),
 
-    namedArgExpression: ($) =>
-      seq(alias($.snakeCase, $.argName), ":", alias($.query, $.argValue)),
+    // bloblang can not mix named/nameless args
+    // but for syntax highlighting we do not care?
+    _argExpression: $ => seq(
+      optional($.argName),
+      alias($.query, $.argValue),
+    ),
 
     bracketExpression: ($) =>
       seq(
@@ -179,10 +172,7 @@ module.exports = grammar({
       ),
 
     lambdaExpression: ($) =>
-      prec(
-        PREC.primary,
-        seq(alias($.varName, $.contextName), token("->"), $.query)
-      ),
+    prec.right(PREC.lambda, seq(alias($.varName, $.contextName), "->", $.query)),
 
     matchExpression: ($) =>
       prec(
@@ -236,69 +226,51 @@ module.exports = grammar({
     // dynamicObjectParser(pCtx),
     _literal: ($) =>
       choice(
-        $.litBool,
-        $.litNumber,
-        $.litNull,
+        $.bool,
+        $.null,
+        $.number,
         $.tripleQuotedString,
         $.quotedString,
-        $.litDynamicArray,
-        $.litDynamicObject
+        $.array,
+        $.object
       ),
 
-    litDynamicArray: ($) =>
-      seq("[", repeat(seq(alias($.query, $.value), ",")), "]"),
-
-    litDynamicObject: ($) =>
+    bool: ($) => choice("true", "false"),
+    null: ($) => token("null"),
+    number: ($) => number,
+    tripleQuotedString: ($) => seq('"""', repeat(choice(/./, /\n/)), '"""'),
+    quotedString: ($) => seq('"', repeat(token.immediate(/[^"]+/)), '"'),
+    array: ($) =>
       seq(
-        "{",
-        repeat(seq(alias($.query, $.key), ":", alias($.query, $.value), ",")),
-        "}"
-      ),
-
-    litBool: ($) => choice("true", "false"),
-    litNull: ($) => token("null"),
-
-
-    // we remove the optional `-` vs bloblang parsing
-    litNumber: ($) => /[0-9]+(\.[0-9]+)?/,
-    // prec.right(10, seq($.num, optional(seq(".", $.num)))),
-
-    variable: ($) => seq("$", $.varName),
-
-    // TODO: from js parser? will this work?
-    quotedString: ($) =>
-      seq(
-        '"',
-        repeat(
-          choice(
-            alias($.unescaped_double_string_fragment, $.string_fragment),
-            $.escape_sequence
+        "[",
+        optional(
+          seq(
+            alias($.query, $.value),
+            repeat(seq(",", alias($.query, $.value))),
+            optional(",")
           )
         ),
-        '"'
+        "]"
+      ),
+    object: ($) =>
+      seq(
+        "{",
+        optional(
+          seq(
+            seq(alias($.query, $.key), ":", alias($.query, $.value)),
+            repeat(seq(",", alias($.query, $.key), ":", alias($.query, $.value))),
+            optional(","),
+          ),
+        ),
+        "}",
       ),
 
-    tripleQuotedString: ($) => seq('"""', repeat(choice(/./, /\n/)), '"""'),
+    variable: ($) => seq("$", identifier),
 
-    unescaped_double_string_fragment: ($) =>
-      token.immediate(prec(1, /[^"\\]+/)),
-    escape_sequence: ($) =>
-      token.immediate(
-        seq(
-          "\\",
-          choice(
-            /[^xu0-7]/,
-            /[0-7]{1,3}/,
-            /x[0-9a-fA-F]{2}/,
-            /u[0-9a-fA-F]{4}/,
-            /u{[0-9a-fA-F]+}/
-          )
-        )
-      ),
-
-    firstQueryPath: ($) => /[A-Za-z_][A-Za-z0-9_]*/,
-    varName: ($) => /[A-Za-z0-9_]+/,
-    snakeCase: ($) => /[a-z0-9_]+/,
-    _num: ($) => /[0-9]+(\.[0-9]+)?/,
+    snakeCase: ($) => token(/[a-z0-9_]+/),
+    varName: ($) => token(/[A-Za-z0-9_]+/),
+    functionName: $ => token(/[a-z0-9_]+\(/),
+    argName: $ => token(/[a-z0-9_]+:/),
+    _num: ($) => token(/[0-9]+(\.[0-9]+)?/),
   },
 });

@@ -1,0 +1,77 @@
+====
+float numbers and array access
+====
+root = 1.2.(x -> x)
+---
+     (program
+       (assignment
+         (path
+           (pathSegment
+             (varName)))
+         (query
+           (query
+             (number))
+           (query
+             (lambdaExpression
+               (contextName)
+               (query
+                 (firstPathSegment)))))))
+====
+object vs match precedence 1
+====
+
+root = match {} {
+}
+
+---
+(program
+       (assignment
+         (path
+           (pathSegment
+             (varName)))
+         (query
+           (matchExpression
+             (context
+               (object))))))
+====
+object vs match precedence 2
+====
+
+root = match {} {
+     _ => "lol"
+}
+
+---
+     (program
+       (assignment
+         (path
+           (pathSegment
+             (varName)))
+         (query
+           (matchExpression
+             (context
+               (object))
+             (matchCase
+               (condition)
+               (expression
+                 (quotedString)))))))
+====
+number and path selection. really an associativity test
+====
+root.x = 1.2.0.0
+---
+     (program
+       (assignment
+         (path
+           (pathSegment
+             (varName))
+           (pathSegment
+             (varName)))
+         (query
+           (query
+             (query
+               (number))
+             (pathSegment
+               (varName)))
+           (pathSegment
+             (varName)))))

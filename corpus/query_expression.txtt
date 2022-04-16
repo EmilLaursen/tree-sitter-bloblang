@@ -1,0 +1,274 @@
+====
+query expression match expression
+====
+root.baz = match true {
+    false => true,
+    true => false,
+    _ => false,
+}
+---
+     (program
+       (assignment
+         (path
+           (pathSegment
+             (varName))
+           (pathSegment
+             (varName)))
+         (query
+           (matchExpression
+             (context
+               (bool))
+             (matchCase
+               (condition
+                 (bool))
+               (expression
+                 (bool)))
+             (matchCase
+               (condition
+                 (bool))
+               (expression
+                 (bool)))
+             (matchCase
+               (condition)
+               (expression
+                 (bool)))))))
+=====
+query expression if expression
+=====
+root.baz = if false {
+    true
+}
+---
+     (program
+       (assignment
+         (path
+           (pathSegment
+             (varName))
+           (pathSegment
+             (varName)))
+         (query
+           (ifExpression
+             (condition
+               (bool))
+             (query
+               (bool))))))
+=====
+query expression if expression else if else if
+=====
+root.baz = if false {
+    true
+} else if true {
+  false
+} else if true {
+  false
+}
+---
+     (program
+       (assignment
+         (path
+           (pathSegment
+             (varName))
+           (pathSegment
+             (varName)))
+         (query
+           (ifExpression
+             (condition
+               (bool))
+             (query
+               (bool))
+             (condition
+               (bool))
+             (query
+               (bool))
+             (condition
+               (bool))
+             (query
+               (bool))))))
+=====
+query expression if expression else if else if else
+=====
+root.baz = if false {
+    true
+} else if false {
+    false
+} else if false {
+    null
+} else {
+  false
+}
+
+---
+     (program
+       (assignment
+         (path
+           (pathSegment
+             (varName))
+           (pathSegment
+             (varName)))
+         (query
+           (ifExpression
+             (condition
+               (bool))
+             (query
+               (bool))
+             (condition
+               (bool))
+             (query
+               (bool))
+             (condition
+               (bool))
+             (query
+               (null))
+             (query
+               (bool))))))
+=====
+query expression lambda
+=====
+
+root = x -> null
+
+---
+
+     (program
+       (assignment
+         (path
+           (pathSegment
+             (varName)))
+         (query
+           (lambdaExpression
+             (contextName)
+             (query
+               (null))))))
+=====
+lambda expression associativity
+=====
+root = x -> x.0
+---
+     (program
+       (assignment
+         (path
+           (pathSegment
+             (varName)))
+         (query
+           (lambdaExpression
+             (contextName)
+             (query
+               (query
+                 (firstPathSegment))
+               (pathSegment
+                 (varName)))))))
+=====
+bracket expression
+=====
+root = ( x -> null )
+---
+     (program
+       (assignment
+         (path
+           (pathSegment
+             (varName)))
+         (query
+           (bracketExpression
+             (openingBracket)
+             (query
+               (lambdaExpression
+                 (contextName)
+                 (query
+                   (null))))
+             (closingBracket)))))
+====
+name the context
+====
+root = this.foo.bar.(thing -> thing.baz + thing.buz)
+---
+     (program
+       (assignment
+         (path
+           (pathSegment
+             (varName)))
+         (query
+           (query
+             (query
+               (query
+                 (firstPathSegment))
+               (pathSegment
+                 (varName)))
+             (pathSegment
+               (varName)))
+           (nameTheContext)
+           (nameTheContext
+             (binary_query
+               (query
+                 (lambdaExpression
+                   (contextName)
+                   (query
+                     (query
+                       (firstPathSegment))
+                     (pathSegment
+                       (varName)))))
+               (query
+                 (query
+                   (firstPathSegment))
+                 (pathSegment
+                   (varName)))))
+           (nameTheContext))))
+====
+function expression
+====
+root = uuid_v4()
+root = uuid_v4(this.x)
+root = uuid_v4(this.x, this.y)
+root.values_one = range(start: null, stop: 10)
+---
+     (program
+       (assignment
+         (path
+           (pathSegment
+             (varName)))
+         (query
+           (functionExpression
+             (functionName))))
+       (assignment
+         (path
+           (pathSegment
+             (varName)))
+         (query
+           (functionExpression
+             (functionName)
+             (argValue
+               (query
+                 (firstPathSegment))
+               (pathSegment
+                 (varName))))))
+       (assignment
+         (path
+           (pathSegment
+             (varName)))
+         (query
+           (functionExpression
+             (functionName)
+             (argValue
+               (query
+                 (firstPathSegment))
+               (pathSegment
+                 (varName)))
+             (argValue
+               (query
+                 (firstPathSegment))
+               (pathSegment
+                 (varName))))))
+       (assignment
+         (path
+           (pathSegment
+             (varName))
+           (pathSegment
+             (varName)))
+         (query
+           (functionExpression
+             (functionName)
+             (argName)
+             (argValue
+               (null))
+             (argName)
+             (argValue
+               (number))))))
