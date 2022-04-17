@@ -29,7 +29,7 @@ module.exports = grammar({
     // TODO: add the actual grammar rules
     program: ($) => seq(repeat($._statement)),
 
-    comment: ($) => token(/#.*\n/),
+    comment: ($) => token(/#.*/),
     word: ($) => choice($.snakeCase, $.varName),
 
     // mapping_parser.go : func parseExecutor(pCtx Context) Func {
@@ -43,23 +43,28 @@ module.exports = grammar({
     mapStmt: ($) =>
       seq(
         "map",
-        choice($.quotedString, $.varName),
+        alias(choice($.quotedString, $.varName), $.mapName),
         "{",
         repeat(choice($.letStmt, $.assignment)),
         "}"
       ),
 
-    letStmt: ($) => seq("let", choice($.quotedString, $.varName), "=", $.query),
+    letStmt: ($) => seq("let", choice($.quotedString, $.varName), "=", $._query),
 
     metaStmt: ($) =>
-      seq("meta", choice($.quotedString, $.varName), "=", $.query),
+      seq("meta", choice($.quotedString, $.varName), $.assign, $._query),
 
-    assignment: ($) => seq($.path, "=", $.query),
+    assign: $ => "=",
+    assignment: ($) => seq(
+      field("left", $._path),
+      $.assign,
+      field("right", $._query),
+    ),
 
     // TODO: test plain mapping stmt with path again!
     // see mapping_parser.go -> pathParser
     // NOTE: can not start with quoted path segment? why? check?
-    path: ($) => seq($.pathSegment, repeat(seq(".", $._fullPathSegment))),
+    _path: ($) => seq(choice($.root, $.pathSegment), repeat(seq(".", $._fullPathSegment))),
 
     firstPathSegment: ($) => token(/[A-Za-z_][A-Za-z0-9_]*/),
     pathSegment: ($) => $.varName,
@@ -89,7 +94,7 @@ module.exports = grammar({
     unary_query: ($) =>
       prec(
         PREC.unary,
-        seq(field("operator", choice("-", "!")), field("operand", $.query))
+        seq(field("operator", choice("-", "!")), field("operand", $._query))
       ),
 
     binary_query: ($) => {
@@ -105,16 +110,19 @@ module.exports = grammar({
           prec.left(
             precedence,
             seq(
-              field("left", $.query),
+              field("left", $._query),
               field("operator", operator),
-              field("right", $.query)
+              field("right", $._query)
             )
           )
         )
       );
     },
 
-    query: ($) =>
+    root: $ => "root",
+    this: $ => "this",
+
+    _query: ($) =>
       choice(
         $.variable,
         $._literal,
@@ -125,18 +133,19 @@ module.exports = grammar({
         $.functionExpression,
         $.unary_query,
         $.binary_query,
-        alias($.varName, $.firstPathSegment),
+        $.this,
+        $.pathSegment,
         // $.firstPathSegment,
         prec.right(
           PREC.primary,
           seq(
-            $.query,
+            $._query,
             repeat1(
               seq(
                 token("."),
                 choice(
-                  alias(seq("(", $.query, ")"), $.nameTheContext),
-                  alias($.functionExpression, $.method),
+                  $.namedContext,
+                  $.methodCall,
                   $._fullPathSegment
                 )
               )
@@ -145,41 +154,50 @@ module.exports = grammar({
         )
       ),
 
+    namedContext: $ => seq("(", $._query, ")"),
+    methodCall: $ => $.functionExpression,
+
     functionExpression: ($) =>
       seq(
-        $.functionName,
-         optional(
+        field("name", $.functionName),
+        field("parameters", optional(
           seq(
             $._argExpression,
             repeat(seq(",", $._argExpression))
           ),
-        ),
+        )),
         ")",
       ),
 
     // bloblang can not mix named/nameless args
     // but for syntax highlighting we do not care?
     _argExpression: $ => seq(
-      optional($.argName),
-      alias($.query, $.argValue),
+      field("arg_name", optional($.argName)),
+      field("arg_value", alias($._query, $.argValue)),
     ),
 
     bracketExpression: ($) =>
       seq(
         alias(token("("), $.openingBracket),
-        $.query,
+        $._query,
         alias(token(")"), $.closingBracket)
       ),
 
     lambdaExpression: ($) =>
-    prec.right(PREC.lambda, seq(alias($.varName, $.contextName), "->", $.query)),
+    prec.right(
+      PREC.lambda,
+      seq(
+        field("arg_name", $.varName),
+        field("arrow",  "->"),
+        field("body", $._query),
+      )),
 
     matchExpression: ($) =>
       prec(
         2,
         seq(
           token("match"),
-          alias(optional($.query), $.context),
+          field("condition", optional($._query)),
           "{",
           repeat(
             seq(
@@ -191,28 +209,25 @@ module.exports = grammar({
         )
       ),
 
+
     matchCase: ($) =>
       seq(
-        alias(choice(token("_"), $.query), $.condition),
+        field("condition", choice(token("_"), $._query)),
         "=>",
-        alias($.query, $.expression)
+        field("consequence", $._query),
       ),
 
     ifExpression: ($) =>
       seq(
         "if",
-        alias($.query, $.condition),
+        field("condition", $._query),
         "{",
-        $.query,
+        field("consequence", $._query),
         "}",
         optional(
           seq(
-            optional(
-              repeat(
-                seq("else if", alias($.query, $.condition), "{", $.query, "}")
-              )
-            ),
-            optional(seq("else", "{", $.query, "}"))
+            "else",
+            field("alternative", choice($.ifExpression, seq("{", $._query, "}"))),
           )
         )
       ),
@@ -220,7 +235,7 @@ module.exports = grammar({
     // Boolean(),
     // Number(),
     // Null(),
-    // QuotedString(),
+    // QuotedString(), TODO: escape sequences not handles. figure out which ones are valid in bloblang. Same as golang?
     // TripleQuoteString(), TODO: not done.... ?
     // dynamicArrayParser(pCtx),
     // dynamicObjectParser(pCtx),
@@ -245,8 +260,8 @@ module.exports = grammar({
         "[",
         optional(
           seq(
-            alias($.query, $.value),
-            repeat(seq(",", alias($.query, $.value))),
+            field("value", $._query),
+            repeat(seq(",", field("value", $._query))),
             optional(",")
           )
         ),
@@ -257,8 +272,10 @@ module.exports = grammar({
         "{",
         optional(
           seq(
-            seq(alias($.query, $.key), ":", alias($.query, $.value)),
-            repeat(seq(",", alias($.query, $.key), ":", alias($.query, $.value))),
+            seq(
+              field("key", $._query), ":", field("value", $._query)
+            ),
+            repeat(seq(",", field("key", $._query), ":", field("value", $._query))),
             optional(","),
           ),
         ),

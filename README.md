@@ -19,6 +19,8 @@
 - [ ] fix: named args vs varName/path segment
 - [ ] varname vs snakecase. How to avoid ending with "(" or ":" in functionName/argName ??
 - [ ] name-the-context after dot. Add node in tree!
+- [ ] object literals, group key value pairs in under common node?
+- [ ] AUTOMATE INTEGRATION TEST: parse all bloblang scripts in benthos docs for errors
 
 ## when parsing done
 

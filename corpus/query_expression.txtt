@@ -1,60 +1,51 @@
-====
+================================================================================
 query expression match expression
-====
+================================================================================
 root.baz = match true {
     false => true,
     true => false,
     _ => false,
 }
----
-     (program
-       (assignment
-         (path
-           (pathSegment
-             (varName))
-           (pathSegment
-             (varName)))
-         (query
-           (matchExpression
-             (context
-               (bool))
-             (matchCase
-               (condition
-                 (bool))
-               (expression
-                 (bool)))
-             (matchCase
-               (condition
-                 (bool))
-               (expression
-                 (bool)))
-             (matchCase
-               (condition)
-               (expression
-                 (bool)))))))
-=====
+--------------------------------------------------------------------------------
+
+(program
+  (assignment
+    (root)
+    (pathSegment
+      (varName))
+    (assign)
+    (matchExpression
+      (bool)
+      (matchCase
+        (bool)
+        (bool))
+      (matchCase
+        (bool)
+        (bool))
+      (matchCase
+        (bool)))))
+
+================================================================================
 query expression if expression
-=====
+================================================================================
 root.baz = if false {
     true
 }
----
-     (program
-       (assignment
-         (path
-           (pathSegment
-             (varName))
-           (pathSegment
-             (varName)))
-         (query
-           (ifExpression
-             (condition
-               (bool))
-             (query
-               (bool))))))
-=====
+--------------------------------------------------------------------------------
+
+(program
+  (assignment
+    (root)
+    (pathSegment
+      (varName))
+    (assign)
+    (ifExpression
+      (bool)
+      (bool))))
+
+================================================================================
 query expression if expression else if else if
-=====
+================================================================================
 root.baz = if false {
     true
 } else if true {
@@ -62,31 +53,27 @@ root.baz = if false {
 } else if true {
   false
 }
----
-     (program
-       (assignment
-         (path
-           (pathSegment
-             (varName))
-           (pathSegment
-             (varName)))
-         (query
-           (ifExpression
-             (condition
-               (bool))
-             (query
-               (bool))
-             (condition
-               (bool))
-             (query
-               (bool))
-             (condition
-               (bool))
-             (query
-               (bool))))))
-=====
+--------------------------------------------------------------------------------
+
+(program
+  (assignment
+    (root)
+    (pathSegment
+      (varName))
+    (assign)
+    (ifExpression
+      (bool)
+      (bool)
+      (ifExpression
+        (bool)
+        (bool)
+        (ifExpression
+          (bool)
+          (bool))))))
+
+================================================================================
 query expression if expression else if else if else
-=====
+================================================================================
 root.baz = if false {
     true
 } else if false {
@@ -97,178 +84,177 @@ root.baz = if false {
   false
 }
 
----
-     (program
-       (assignment
-         (path
-           (pathSegment
-             (varName))
-           (pathSegment
-             (varName)))
-         (query
-           (ifExpression
-             (condition
-               (bool))
-             (query
-               (bool))
-             (condition
-               (bool))
-             (query
-               (bool))
-             (condition
-               (bool))
-             (query
-               (null))
-             (query
-               (bool))))))
-=====
+--------------------------------------------------------------------------------
+
+(program
+  (assignment
+    (root)
+    (pathSegment
+      (varName))
+    (assign)
+    (ifExpression
+      (bool)
+      (bool)
+      (ifExpression
+        (bool)
+        (bool)
+        (ifExpression
+          (bool)
+          (null)
+          (bool))))))
+
+================================================================================
 query expression lambda
-=====
+================================================================================
 
 root = x -> null
 
----
+--------------------------------------------------------------------------------
 
-     (program
-       (assignment
-         (path
-           (pathSegment
-             (varName)))
-         (query
-           (lambdaExpression
-             (contextName)
-             (query
-               (null))))))
-=====
+(program
+  (assignment
+    (root)
+    (assign)
+    (lambdaExpression
+      (varName)
+      (null))))
+
+================================================================================
 lambda expression associativity
-=====
+================================================================================
 root = x -> x.0
----
-     (program
-       (assignment
-         (path
-           (pathSegment
-             (varName)))
-         (query
-           (lambdaExpression
-             (contextName)
-             (query
-               (query
-                 (firstPathSegment))
-               (pathSegment
-                 (varName)))))))
-=====
+--------------------------------------------------------------------------------
+
+(program
+  (assignment
+    (root)
+    (assign)
+    (lambdaExpression
+      (varName)
+      (pathSegment
+        (varName))
+      (pathSegment
+        (varName)))))
+
+================================================================================
 bracket expression
-=====
+================================================================================
 root = ( x -> null )
----
-     (program
-       (assignment
-         (path
-           (pathSegment
-             (varName)))
-         (query
-           (bracketExpression
-             (openingBracket)
-             (query
-               (lambdaExpression
-                 (contextName)
-                 (query
-                   (null))))
-             (closingBracket)))))
-====
+--------------------------------------------------------------------------------
+
+(program
+  (assignment
+    (root)
+    (assign)
+    (bracketExpression
+      (openingBracket)
+      (lambdaExpression
+        (varName)
+        (null))
+      (closingBracket))))
+
+================================================================================
 name the context
-====
+================================================================================
 root = this.foo.bar.(thing -> thing.baz + thing.buz)
----
-     (program
-       (assignment
-         (path
-           (pathSegment
-             (varName)))
-         (query
-           (query
-             (query
-               (query
-                 (firstPathSegment))
-               (pathSegment
-                 (varName)))
-             (pathSegment
-               (varName)))
-           (nameTheContext)
-           (nameTheContext
-             (binary_query
-               (query
-                 (lambdaExpression
-                   (contextName)
-                   (query
-                     (query
-                       (firstPathSegment))
-                     (pathSegment
-                       (varName)))))
-               (query
-                 (query
-                   (firstPathSegment))
-                 (pathSegment
-                   (varName)))))
-           (nameTheContext))))
-====
+--------------------------------------------------------------------------------
+
+(program
+  (assignment
+    (root)
+    (assign)
+    (this)
+    (pathSegment
+      (varName))
+    (pathSegment
+      (varName))
+    (namedContext
+      (binary_query
+        (lambdaExpression
+          (varName)
+          (pathSegment
+            (varName))
+          (pathSegment
+            (varName)))
+        (pathSegment
+          (varName))
+        (pathSegment
+          (varName))))))
+
+================================================================================
 function expression
-====
+================================================================================
 root = uuid_v4()
 root = uuid_v4(this.x)
 root = uuid_v4(this.x, this.y)
 root.values_one = range(start: null, stop: 10)
----
-     (program
-       (assignment
-         (path
-           (pathSegment
-             (varName)))
-         (query
-           (functionExpression
-             (functionName))))
-       (assignment
-         (path
-           (pathSegment
-             (varName)))
-         (query
-           (functionExpression
-             (functionName)
-             (argValue
-               (query
-                 (firstPathSegment))
-               (pathSegment
-                 (varName))))))
-       (assignment
-         (path
-           (pathSegment
-             (varName)))
-         (query
-           (functionExpression
-             (functionName)
-             (argValue
-               (query
-                 (firstPathSegment))
-               (pathSegment
-                 (varName)))
-             (argValue
-               (query
-                 (firstPathSegment))
-               (pathSegment
-                 (varName))))))
-       (assignment
-         (path
-           (pathSegment
-             (varName))
-           (pathSegment
-             (varName)))
-         (query
-           (functionExpression
-             (functionName)
-             (argName)
-             (argValue
-               (null))
-             (argName)
-             (argValue
-               (number))))))
+--------------------------------------------------------------------------------
+
+(program
+  (assignment
+    (root)
+    (assign)
+    (functionExpression
+      (functionName)))
+  (assignment
+    (root)
+    (assign)
+    (functionExpression
+      (functionName)
+      (argValue
+        (this)
+        (pathSegment
+          (varName)))))
+  (assignment
+    (root)
+    (assign)
+    (functionExpression
+      (functionName)
+      (argValue
+        (this)
+        (pathSegment
+          (varName)))
+      (argValue
+        (this)
+        (pathSegment
+          (varName)))))
+  (assignment
+    (root)
+    (pathSegment
+      (varName))
+    (assign)
+    (functionExpression
+      (functionName)
+      (argName)
+      (argValue
+        (null))
+      (argName)
+      (argValue
+        (number)))))
+
+================================================================================
+method call
+================================================================================
+root."lol".0 = this.map_each(item -> item.upper_case())
+--------------------------------------------------------------------------------
+
+(program
+  (assignment
+    (root)
+    (quotedPathSegment
+      (quotedString))
+    (pathSegment
+      (varName))
+    (assign)
+    (this)
+    (methodCall
+      (functionExpression
+        (functionName)
+        (argValue
+          (lambdaExpression
+            (varName)
+            (pathSegment
+              (varName))
+            (methodCall
+              (functionExpression
+                (functionName)))))))))

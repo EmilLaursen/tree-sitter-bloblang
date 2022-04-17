@@ -1,97 +1,103 @@
-====
+================================================================================
 negation unary query arithmetic
-====
+================================================================================
 root = !this.lol.trolo
----
-     (program
-       (assignment
-         (path
-           (pathSegment
-             (varName)))
-         (query
-           (unary_query
-             (query
-               (query
-                 (query
-                   (firstPathSegment))
-                 (pathSegment
-                   (varName)))
-               (pathSegment
-                 (varName)))))))
-====
+--------------------------------------------------------------------------------
+
+(program
+  (assignment
+    (root)
+    (assign)
+    (unary_query
+      (this)
+      (pathSegment
+        (varName))
+      (pathSegment
+        (varName)))))
+
+================================================================================
 minus unary query arithmetic
-====
+================================================================================
 root = -this.lol.trolo
----
-     (program
-       (assignment
-         (path
-           (pathSegment
-             (varName)))
-         (query
-           (unary_query
-             (query
-               (query
-                 (query
-                   (firstPathSegment))
-                 (pathSegment
-                   (varName)))
-               (pathSegment
-                 (varName)))))))
-====
+--------------------------------------------------------------------------------
+
+(program
+  (assignment
+    (root)
+    (assign)
+    (unary_query
+      (this)
+      (pathSegment
+        (varName))
+      (pathSegment
+        (varName)))))
+
+================================================================================
 binary and unary query arithmetic 1
 expected: (( (-x)+ "lol" )-1)
-====
+================================================================================
 root = -this.x + "lol" - 1
----
-     (program
-       (assignment
-         (path
-           (pathSegment
-             (varName)))
-         (query
-           (binary_query
-             (query
-               (binary_query
-                 (query
-                   (unary_query
-                     (query
-                       (query
-                         (firstPathSegment))
-                       (pathSegment
-                         (varName)))))
-                 (query
-                   (quotedString))))
-             (query
-               (number))))))
-====
+--------------------------------------------------------------------------------
+
+(program
+  (assignment
+    (root)
+    (assign)
+    (binary_query
+      (binary_query
+        (unary_query
+          (this)
+          (pathSegment
+            (varName)))
+        (quotedString))
+      (number))))
+
+================================================================================
 binary and unary query arithmetic 2
 expected: (( (-1) + (2/$x) ) - (1*"lol"))
-====
+================================================================================
 root = -1 + 2 / $x - 1 * "lol" 
----
-     (program
-       (assignment
-         (path
-           (pathSegment
-             (varName)))
-         (query
-           (binary_query
-             (query
-               (binary_query
-                 (query
-                   (unary_query
-                     (query
-                       (number))))
-                 (query
-                   (binary_query
-                     (query
-                       (number))
-                     (query
-                       (variable))))))
-             (query
-               (binary_query
-                 (query
-                   (number))
-                 (query
-                   (quotedString))))))))
+--------------------------------------------------------------------------------
+
+(program
+  (assignment
+    (root)
+    (assign)
+    (binary_query
+      (binary_query
+        (unary_query
+          (number))
+        (binary_query
+          (number)
+          (variable)))
+      (binary_query
+        (number)
+        (quotedString)))))
+
+================================================================================
+arithmetic mixed
+================================================================================
+root = this.(x | y) && true || false + 1 - 2 * 4
+--------------------------------------------------------------------------------
+
+(program
+  (assignment
+    (root)
+    (assign)
+    (binary_query
+      (binary_query
+        (this)
+        (namedContext
+          (binary_query
+            (pathSegment
+              (varName))
+            (pathSegment
+              (varName))))
+        (bool))
+      (binary_query
+        (binary_query
+          (bool)
+          (number))
+        (binary_query
+          (number)
+          (number))))))

@@ -1,110 +1,104 @@
-====
+================================================================================
 triple quoted string
-====
+================================================================================
 
 root = """
 tro lolo what "
 yeehaw root.x = this.y ""
 """
----
-     (program
-       (assignment
-         (path
-           (pathSegment
-             (varName)))
-         (query
-           (tripleQuotedString))))
-====
+--------------------------------------------------------------------------------
+
+(program
+  (assignment
+    (root)
+    (assign)
+    (tripleQuotedString)))
+
+================================================================================
 literal number integer
-====
+================================================================================
 root = 0012310
----
-     (program
-       (assignment
-         (path
-           (pathSegment
-             (varName)))
-         (query
-           (number))))
+--------------------------------------------------------------------------------
 
-====
+(program
+  (assignment
+    (root)
+    (assign)
+    (number)))
+
+================================================================================
 literal number float
-====
+================================================================================
 root = 0012310.001231000
----
-     (program
-       (assignment
-         (path
-           (pathSegment
-             (varName)))
-         (query
-           (number))))
+--------------------------------------------------------------------------------
 
-====
+(program
+  (assignment
+    (root)
+    (assign)
+    (number)))
+
+================================================================================
 literal bool
-====
+================================================================================
 root = true
 root = false
----
-     (program
-       (assignment
-         (path
-           (pathSegment
-             (varName)))
-         (query
-           (bool)))
-       (assignment
-         (path
-           (pathSegment
-             (varName)))
-         (query
-           (bool))))
-===
-literal null
-===
-root = null
----
-     (program
-       (assignment
-         (path
-           (pathSegment
-             (varName)))
-         (query
-           (null))))
+--------------------------------------------------------------------------------
 
-====
+(program
+  (assignment
+    (root)
+    (assign)
+    (bool))
+  (assignment
+    (root)
+    (assign)
+    (bool)))
+
+================================================================================
+literal null
+================================================================================
+root = null
+--------------------------------------------------------------------------------
+
+(program
+  (assignment
+    (root)
+    (assign)
+    (null)))
+
+================================================================================
 literal addition number (move)
-====
+================================================================================
 root.x = x + 1
----
-     (program
-       (assignment
-         (path
-           (pathSegment
-             (varName))
-           (pathSegment
-             (varName)))
-         (query
-           (binary_query
-             (query
-               (firstPathSegment))
-             (query
-               (number))))))
-====
+--------------------------------------------------------------------------------
+
+(program
+  (assignment
+    (root)
+    (pathSegment
+      (varName))
+    (assign)
+    (binary_query
+      (pathSegment
+        (varName))
+      (number))))
+
+================================================================================
 literal quoted string
-====
+================================================================================
 root = "string"
----
-     (program
-       (assignment
-         (path
-           (pathSegment
-             (varName)))
-         (query
-           (quotedString))))
-====
+--------------------------------------------------------------------------------
+
+(program
+  (assignment
+    (root)
+    (assign)
+    (quotedString)))
+
+================================================================================
 literal array
-====
+================================================================================
 root = []
 root = [1,2,3]
 root = [
@@ -112,89 +106,63 @@ root = [
      2,
      3,
      ]
----
-     (program
-       (assignment
-         (path
-           (pathSegment
-             (varName)))
-         (query
-           (array)))
-       (assignment
-         (path
-           (pathSegment
-             (varName)))
-         (query
-           (array
-             (value
-               (number))
-             (value
-               (number))
-             (value
-               (number)))))
-       (assignment
-         (path
-           (pathSegment
-             (varName)))
-         (query
-           (array
-             (value
-               (number))
-             (value
-               (number))
-             (value
-               (number))))))
-====
+--------------------------------------------------------------------------------
+
+(program
+  (assignment
+    (root)
+    (assign)
+    (array))
+  (assignment
+    (root)
+    (assign)
+    (array
+      (number)
+      (number)
+      (number)))
+  (assignment
+    (root)
+    (assign)
+    (array
+      (number)
+      (number)
+      (number))))
+
+================================================================================
 literal object
-====
+================================================================================
 root = {}
 root = {this.x:1,this.y:this.z,}
 root = {
      "key": "lol",
      1:1,
      }
----
-     (program
-       (assignment
-         (path
-           (pathSegment
-             (varName)))
-         (query
-           (object)))
-       (assignment
-         (path
-           (pathSegment
-             (varName)))
-         (query
-           (object
-             (key
-               (query
-                 (firstPathSegment))
-               (pathSegment
-                 (varName)))
-             (value
-               (number))
-             (key
-               (query
-                 (firstPathSegment))
-               (pathSegment
-                 (varName)))
-             (value
-               (query
-                 (firstPathSegment))
-               (pathSegment
-                 (varName))))))
-       (assignment
-         (path
-           (pathSegment
-             (varName)))
-         (query
-           (object
-             (key
-               (quotedString))
-             (value
-               (quotedString))
-             (key
-               (number))
-             (value
-               (number))))))
+--------------------------------------------------------------------------------
+
+(program
+  (assignment
+    (root)
+    (assign)
+    (object))
+  (assignment
+    (root)
+    (assign)
+    (object
+      (this)
+      (pathSegment
+        (varName))
+      (number)
+      (this)
+      (pathSegment
+        (varName))
+      (this)
+      (pathSegment
+        (varName))))
+  (assignment
+    (root)
+    (assign)
+    (object
+      (quotedString)
+      (quotedString)
+      (number)
+      (number))))

@@ -11,3 +11,12 @@ root = 1.2.1
 
 ## lambda associativity
 root = x -> x.0
+
+## DUMP
+
+#0.11 = 1 + x -> 2
+#0.1.2.3 = 0.(123 + 1 + 1 + 1 -> 0123)
+#root = !if true { false }
+#root = match {}
+#root = if true { 1 }.(x -> x+1).(match {_ => 3})
+# root = !!!!!true
