@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+reflex -r 'grammar.js$|\.txtt$' -- sh -c 'tree-sitter generate && node-gyp build && tree-sitter test'

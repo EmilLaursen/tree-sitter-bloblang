@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+SCRIPT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" &> /dev/null && pwd)
+
+cd $SCRIPT_DIR/../.. || exit 1
+
+wd=$(pwd)
+target=./benthos_tmp
+
+echo "Working dir: $wd, target: $target"
+
+echo "Cloning benthos main line"
+git clone --depth 1 https://github.com/benthosdev/benthos.git $target
+
+echo "Generating tests"
+python generate_integration_tests.py "${target}" "${wd}"
+
+echo "removing $target"
+rm -fr $target
