@@ -1,31 +1,19 @@
 # Goals
 
-- Tree sitter grammer for bloblang
-- Highlighting for bloblang
+- Highlighting for bloblang (.blobl)
 - Multidocument grammar for benthos configs
-  - [ ] YAML grammer + bloblang grammer merge
-  - [ ] If new config lang used for benthos (CUE/dhall etc) do the same here.
+  - [ ] YAML grammer + bloblang grammer injection
+  - [ ] Ditto for other potential configuration languages used with benthos (CUE/dhall)
 
-# TODO
+# Dev
 
-## Parsing features
+A few development scripts are found in `bin/dev`. I use `reflex` to re-run tests on code changes.
+Look in `dev` script. A simple integration test is available `integration_test`, which parses
+all scripts from the benthos documentation.
 
-- [ ] arithmetic
-- [x] comments. Note: our comment parsing is more forgiving than bloblang? find example.
-- [x] triple quoted strings
-- [ ] make query hidden in tree
-- [ ] do literal numbers still work precedence wise with paths?
-- [ ] if: show else if / else nodes in tree
-- [ ] fix: named args vs varName/path segment
-- [ ] varname vs snakecase. How to avoid ending with "(" or ":" in functionName/argName ??
-- [ ] name-the-context after dot. Add node in tree!
-- [ ] object literals, group key value pairs in under common node?
-- [ ] AUTOMATE INTEGRATION TEST: parse all bloblang scripts in benthos docs for errors
+# Improvements
 
-## when parsing done
-
-Current parser maps pretty 1-1 to the golang parser code. This made it easier to port the go code to a grammer. But it may not give optimal tree structure/node names, as described in the tres-sitter docs.
-
-Consider if this should be restructured
-
-- [ ] Better nodenames / tree structure. Refactor parser?
+- [ ] Improvements can be made to the structure of the parse tree. Adding more field names etc.
+- [ ] Current parser is more lenient and does not match 1-1 with the reference implementation. One example
+      is variable/function names. We have no restrictions to snakecase. Also, I belive we allow more whitespace and comments
+      than the reference implementation.
