@@ -26,6 +26,11 @@
     ]
   },
   {
+    "type": "argName",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "argValue",
     "named": true,
     "fields": {},
@@ -95,6 +100,10 @@
         },
         {
           "type": "quotedString",
+          "named": true
+        },
+        {
+          "type": "root",
           "named": true
         },
         {
@@ -190,6 +199,10 @@
           },
           {
             "type": "quotedString",
+            "named": true
+          },
+          {
+            "type": "root",
             "named": true
           },
           {
@@ -316,6 +329,10 @@
             "named": true
           },
           {
+            "type": "root",
+            "named": true
+          },
+          {
             "type": "this",
             "named": true
           },
@@ -419,6 +436,10 @@
           },
           {
             "type": "quotedString",
+            "named": true
+          },
+          {
+            "type": "root",
             "named": true
           },
           {
@@ -574,6 +595,10 @@
             "named": true
           },
           {
+            "type": "root",
+            "named": true
+          },
+          {
             "type": "this",
             "named": true
           },
@@ -679,6 +704,10 @@
           "named": true
         },
         {
+          "type": "root",
+          "named": true
+        },
+        {
           "type": "this",
           "named": true
         },
@@ -705,6 +734,10 @@
         "multiple": true,
         "required": false,
         "types": [
+          {
+            "type": ":",
+            "named": false
+          },
           {
             "type": "argName",
             "named": true
@@ -740,6 +773,10 @@
             "named": false
           },
           {
+            "type": ":",
+            "named": false
+          },
+          {
             "type": "argName",
             "named": true
           },
@@ -750,6 +787,11 @@
         ]
       }
     }
+  },
+  {
+    "type": "functionName",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "ifExpression",
@@ -825,6 +867,10 @@
           },
           {
             "type": "quotedString",
+            "named": true
+          },
+          {
+            "type": "root",
             "named": true
           },
           {
@@ -926,6 +972,10 @@
             "named": true
           },
           {
+            "type": "root",
+            "named": true
+          },
+          {
             "type": "this",
             "named": true
           },
@@ -1013,6 +1063,10 @@
           },
           {
             "type": "quotedString",
+            "named": true
+          },
+          {
+            "type": "root",
             "named": true
           },
           {
@@ -1147,6 +1201,10 @@
             "named": true
           },
           {
+            "type": "root",
+            "named": true
+          },
+          {
             "type": "this",
             "named": true
           },
@@ -1169,96 +1227,115 @@
   {
     "type": "letStmt",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "array",
-          "named": true
-        },
-        {
-          "type": "binary_query",
-          "named": true
-        },
-        {
-          "type": "bool",
-          "named": true
-        },
-        {
-          "type": "bracketExpression",
-          "named": true
-        },
-        {
-          "type": "functionExpression",
-          "named": true
-        },
-        {
-          "type": "ifExpression",
-          "named": true
-        },
-        {
-          "type": "lambdaExpression",
-          "named": true
-        },
-        {
-          "type": "matchExpression",
-          "named": true
-        },
-        {
-          "type": "methodCall",
-          "named": true
-        },
-        {
-          "type": "namedContext",
-          "named": true
-        },
-        {
-          "type": "null",
-          "named": true
-        },
-        {
-          "type": "number",
-          "named": true
-        },
-        {
-          "type": "object",
-          "named": true
-        },
-        {
-          "type": "pathSegment",
-          "named": true
-        },
-        {
-          "type": "quotedPathSegment",
-          "named": true
-        },
-        {
-          "type": "quotedString",
-          "named": true
-        },
-        {
-          "type": "this",
-          "named": true
-        },
-        {
-          "type": "tripleQuotedString",
-          "named": true
-        },
-        {
-          "type": "unary_query",
-          "named": true
-        },
-        {
-          "type": "varName",
-          "named": true
-        },
-        {
-          "type": "variable",
-          "named": true
-        }
-      ]
+    "fields": {
+      "left": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "quotedString",
+            "named": true
+          },
+          {
+            "type": "varName",
+            "named": true
+          }
+        ]
+      },
+      "right": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": ".",
+            "named": false
+          },
+          {
+            "type": "array",
+            "named": true
+          },
+          {
+            "type": "binary_query",
+            "named": true
+          },
+          {
+            "type": "bool",
+            "named": true
+          },
+          {
+            "type": "bracketExpression",
+            "named": true
+          },
+          {
+            "type": "functionExpression",
+            "named": true
+          },
+          {
+            "type": "ifExpression",
+            "named": true
+          },
+          {
+            "type": "lambdaExpression",
+            "named": true
+          },
+          {
+            "type": "matchExpression",
+            "named": true
+          },
+          {
+            "type": "methodCall",
+            "named": true
+          },
+          {
+            "type": "namedContext",
+            "named": true
+          },
+          {
+            "type": "null",
+            "named": true
+          },
+          {
+            "type": "number",
+            "named": true
+          },
+          {
+            "type": "object",
+            "named": true
+          },
+          {
+            "type": "pathSegment",
+            "named": true
+          },
+          {
+            "type": "quotedPathSegment",
+            "named": true
+          },
+          {
+            "type": "quotedString",
+            "named": true
+          },
+          {
+            "type": "root",
+            "named": true
+          },
+          {
+            "type": "this",
+            "named": true
+          },
+          {
+            "type": "tripleQuotedString",
+            "named": true
+          },
+          {
+            "type": "unary_query",
+            "named": true
+          },
+          {
+            "type": "variable",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -1370,6 +1447,10 @@
             "named": true
           },
           {
+            "type": "root",
+            "named": true
+          },
+          {
             "type": "this",
             "named": true
           },
@@ -1457,6 +1538,10 @@
           },
           {
             "type": "quotedString",
+            "named": true
+          },
+          {
+            "type": "root",
             "named": true
           },
           {
@@ -1553,6 +1638,10 @@
           },
           {
             "type": "quotedString",
+            "named": true
+          },
+          {
+            "type": "root",
             "named": true
           },
           {
@@ -1659,6 +1748,10 @@
         },
         {
           "type": "quotedString",
+          "named": true
+        },
+        {
+          "type": "root",
           "named": true
         },
         {
@@ -1772,6 +1865,10 @@
           "named": true
         },
         {
+          "type": "root",
+          "named": true
+        },
+        {
           "type": "this",
           "named": true
         },
@@ -1789,11 +1886,6 @@
         }
       ]
     }
-  },
-  {
-    "type": "number",
-    "named": true,
-    "fields": {}
   },
   {
     "type": "object",
@@ -1869,6 +1961,10 @@
           },
           {
             "type": "quotedString",
+            "named": true
+          },
+          {
+            "type": "root",
             "named": true
           },
           {
@@ -1959,6 +2055,10 @@
           },
           {
             "type": "quotedString",
+            "named": true
+          },
+          {
+            "type": "root",
             "named": true
           },
           {
@@ -2110,6 +2210,10 @@
           },
           {
             "type": "quotedString",
+            "named": true
+          },
+          {
+            "type": "root",
             "named": true
           },
           {
@@ -2269,10 +2373,6 @@
     "named": false
   },
   {
-    "type": "argName",
-    "named": true
-  },
-  {
     "type": "closingBracket",
     "named": true
   },
@@ -2287,10 +2387,6 @@
   {
     "type": "false",
     "named": false
-  },
-  {
-    "type": "functionName",
-    "named": true
   },
   {
     "type": "if",
@@ -2321,15 +2417,15 @@
     "named": true
   },
   {
+    "type": "number",
+    "named": true
+  },
+  {
     "type": "openingBracket",
     "named": true
   },
   {
     "type": "root",
-    "named": true
-  },
-  {
-    "type": "snakeCase",
     "named": true
   },
   {
