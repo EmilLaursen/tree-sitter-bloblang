@@ -1,3 +1,5 @@
+![demo gif](https://media.giphy.com/media/4yg2oJI5YXE3jhzyug/giphy.gif)
+
 # Goals
 
 - Highlighting for [bloblang](https://www.benthos.dev/docs/guides/bloblang/about) (.blobl)
