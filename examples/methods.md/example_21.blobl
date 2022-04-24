@@ -1,0 +1,4 @@
+root.foo_len = this.foo.length()
+
+# In:  {"foo":"hello world"}
+# Out: {"foo_len":11}

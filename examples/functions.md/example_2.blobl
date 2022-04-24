@@ -1,0 +1,8 @@
+root = this
+root.id = count("bloblang_function_example")
+
+# In:  {"message":"foo"}
+# Out: {"id":1,"message":"foo"}
+
+# In:  {"message":"bar"}
+# Out: {"id":2,"message":"bar"}

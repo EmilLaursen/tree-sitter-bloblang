@@ -1,0 +1,14 @@
+root = this.json_schema("""{
+  "type":"object",
+  "properties":{
+    "foo":{
+      "type":"string"
+    }
+  }
+}""")
+
+# In:  {"foo":"bar"}
+# Out: {"foo":"bar"}
+
+# In:  {"foo":5}
+# Out: Error("failed assignment (line 1): field `this`: foo invalid type. expected: string, given: integer")

@@ -1,0 +1,4 @@
+root.doc = json()
+
+# In:  {"foo":{"bar":"hello world"}}
+# Out: {"doc":{"foo":{"bar":"hello world"}}}

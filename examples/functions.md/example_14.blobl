@@ -1,0 +1,1 @@
+root = if batch_index() > 0 { deleted() }

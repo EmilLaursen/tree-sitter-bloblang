@@ -1,0 +1,4 @@
+root.biggest = this.values.max()
+
+# In:  {"values":[0,3,2.5,7,5]}
+# Out: {"biggest":7}

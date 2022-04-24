@@ -1,0 +1,11 @@
+map remove_naughty_man {
+  root = match {
+    this.type() == "object" => this.map_each(item -> item.value.apply("remove_naughty_man")),
+    this.type() == "array" => this.map_each(ele -> ele.apply("remove_naughty_man")),
+    this.type() == "string" => if this.lowercase().contains("voldemort") { deleted() },
+    this.type() == "bytes" => if this.lowercase().contains("voldemort") { deleted() },
+    _ => this,
+  }
+}
+
+root = this.apply("remove_naughty_man")

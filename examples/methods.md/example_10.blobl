@@ -1,0 +1,4 @@
+root.title = this.title.capitalize()
+
+# In:  {"title":"the foo bar"}
+# Out: {"title":"The Foo Bar"}

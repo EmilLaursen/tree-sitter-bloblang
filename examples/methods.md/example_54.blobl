@@ -1,0 +1,7 @@
+root.new_value = [10,this.value].min()
+
+# In:  {"value":2}
+# Out: {"new_value":2}
+
+# In:  {"value":23}
+# Out: {"new_value":10}

@@ -1,0 +1,4 @@
+root.sorted = this.foo.sort_by(ele -> ele.id)
+
+# In:  {"foo":[{"id":"bbb","message":"bar"},{"id":"aaa","message":"foo"},{"id":"ccc","message":"baz"}]}
+# Out: {"sorted":[{"id":"aaa","message":"foo"},{"id":"bbb","message":"bar"},{"id":"ccc","message":"baz"}]}

@@ -1,0 +1,5 @@
+root = this
+root.bar = deleted()
+
+# In:  {"id":"wat1","message":"hello world","bar":"remove me"}
+# Out: {"id":"wat1","message":"hello world"}

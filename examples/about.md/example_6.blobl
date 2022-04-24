@@ -1,0 +1,4 @@
+# Set a temporary variable
+let foo = "yo"
+
+root.new_doc.type = $foo

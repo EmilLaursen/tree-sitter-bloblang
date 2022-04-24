@@ -1,0 +1,1 @@
+root.contents = this.thing.article.contents | this.thing.comment.contents

@@ -1,0 +1,4 @@
+root.foo = this.foo.enumerated()
+
+# In:  {"foo":["bar","baz"]}
+# Out: {"foo":[{"index":0,"value":"bar"},{"index":1,"value":"baz"}]}

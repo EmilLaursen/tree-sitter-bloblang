@@ -1,0 +1,7 @@
+root.something_at = this.created_at.format_timestamp("2006-Jan-02 15:04:05.999999", "UTC")
+
+# In:  {"created_at":1597405526.123456}
+# Out: {"something_at":"2020-Aug-14 11:45:26.123456"}
+
+# In:  {"created_at":"2020-08-14T11:50:26.371Z"}
+# Out: {"something_at":"2020-Aug-14 11:50:26.371"}

@@ -1,0 +1,1 @@
+root.doc.id = this.thing.id.or(uuid_v4())

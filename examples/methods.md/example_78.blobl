@@ -1,0 +1,5 @@
+root.bar_type = this.bar.type()
+root.foo_type = this.foo.type()
+
+# In:  {"bar":10,"foo":"is a string"}
+# Out: {"bar_type":"number","foo_type":"string"}

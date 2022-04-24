@@ -1,0 +1,4 @@
+root.foo_key_values = this.foo.key_values().sort_by(pair -> pair.key)
+
+# In:  {"foo":{"bar":1,"baz":2}}
+# Out: {"foo_key_values":[{"key":"bar","value":1},{"key":"baz","value":2}]}

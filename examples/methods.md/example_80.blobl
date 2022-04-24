@@ -1,0 +1,7 @@
+root.any_over_21 = this.patrons.any(patron -> patron.age >= 21)
+
+# In:  {"patrons":[{"id":"1","age":18},{"id":"2","age":23}]}
+# Out: {"any_over_21":true}
+
+# In:  {"patrons":[{"id":"1","age":10},{"id":"2","age":12}]}
+# Out: {"any_over_21":false}

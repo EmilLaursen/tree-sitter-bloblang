@@ -1,0 +1,6 @@
+let key = "2b7e151628aed2a6abf7158809cf4f3c".decode("hex")
+let vector = "f0f1f2f3f4f5f6f7f8f9fafbfcfdfeff".decode("hex")
+root.decrypted = this.value.decode("hex").decrypt_aes("ctr", $key, $vector).string()
+
+# In:  {"value":"84e9b31ff7400bdf80be7254"}
+# Out: {"decrypted":"hello world!"}

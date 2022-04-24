@@ -1,0 +1,4 @@
+root = content().reverse()
+
+# In:  {"thing":"backwards"}
+# Out: }"sdrawkcab":"gniht"{

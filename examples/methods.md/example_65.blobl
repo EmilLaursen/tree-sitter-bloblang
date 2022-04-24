@@ -1,0 +1,4 @@
+root.delay_for_s = this.delay_for.parse_duration() / 1000000000
+
+# In:  {"delay_for":"2h"}
+# Out: {"delay_for_s":7200}

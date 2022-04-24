@@ -1,0 +1,8 @@
+root = this.format_json("  ")
+
+# In:  {"doc":{"foo":"bar"}}
+# Out: {
+#        "doc": {
+#          "foo": "bar"
+#        }
+#      }

@@ -1,0 +1,2 @@
+root.foo.bar = this.message.uppercase().replace_all(old: "WORLD", new: this.message.capitalize())
+root.foo."buz me".baz = "I like mapping"

@@ -1,0 +1,1 @@
+root.topic = root_meta("kafka_topic")

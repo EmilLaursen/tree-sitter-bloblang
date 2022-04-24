@@ -1,0 +1,7 @@
+root.path_sep = this.path.filepath_split()
+
+# In:  {"path":"/foo/bar.txt"}
+# Out: {"path_sep":["/foo/","bar.txt"]}
+
+# In:  {"path":"baz.txt"}
+# Out: {"path_sep":["","baz.txt"]}

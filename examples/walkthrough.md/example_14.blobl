@@ -1,0 +1,8 @@
+root = this
+root.pet.toys = match this.pet.type {
+  "cat" => 3,
+  "dog" => 5,
+  "rabbit" => 8,
+  "horse" => 20,
+  _ => 0,
+}

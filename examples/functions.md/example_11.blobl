@@ -1,0 +1,6 @@
+root.a = range(0, 10)
+root.b = range(start: 0, stop: this.max, step: 2) # Using named params
+root.c = range(0, -this.max, -2)
+
+# In:  {"max":10}
+# Out: {"a":[0,1,2,3,4,5,6,7,8,9],"b":[0,2,4,6,8],"c":[0,-2,-4,-6,-8]}

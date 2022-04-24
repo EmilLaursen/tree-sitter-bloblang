@@ -1,0 +1,4 @@
+root.escaped = this.value.escape_html()
+
+# In:  {"value":"foo & bar"}
+# Out: {"escaped":"foo &amp; bar"}

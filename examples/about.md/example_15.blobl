@@ -1,0 +1,5 @@
+root = this
+root.type = match this.type { "doc" => "document", "art" => "article", _ => this }
+
+# In:  {"type":"doc","foo":"bar"}
+# Out: {"type":"document","foo":"bar"}

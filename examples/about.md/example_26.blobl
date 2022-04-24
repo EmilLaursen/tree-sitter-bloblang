@@ -1,0 +1,8 @@
+# Catch errors caused by:
+# - foo not existing
+# - foo not being a string
+# - an element from split foo not being a valid JSON string
+root.things = this.foo.split(",").map_each( ele -> ele.parse_json() ).catch([])
+
+# Specifically catch a JSON parse error
+root.things = this.foo.split(",").map_each( ele -> ele.parse_json().catch({}) )

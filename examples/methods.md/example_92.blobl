@@ -1,0 +1,4 @@
+root.result = this.flatten()
+
+# In:  ["foo",["bar","baz"],"buz"]
+# Out: {"result":["foo","bar","baz","buz"]}

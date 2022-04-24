@@ -1,0 +1,7 @@
+root.new_value = this.value.log().round()
+
+# In:  {"value":1}
+# Out: {"new_value":0}
+
+# In:  {"value":2.7183}
+# Out: {"new_value":1}

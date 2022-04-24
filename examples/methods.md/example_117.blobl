@@ -1,0 +1,4 @@
+root.foo_vals = this.foo.values().sort()
+
+# In:  {"foo":{"bar":1,"baz":2}}
+# Out: {"foo_vals":[1,2]}

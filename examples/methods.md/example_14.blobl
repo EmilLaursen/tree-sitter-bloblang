@@ -1,0 +1,4 @@
+root.path = this.path_elements.filepath_join()
+
+# In:  {"path_elements":["/foo/","bar.txt"]}
+# Out: {"path":"/foo/bar.txt"}

@@ -1,0 +1,7 @@
+root.new_value = this.value.log10()
+
+# In:  {"value":100}
+# Out: {"new_value":2}
+
+# In:  {"value":1000}
+# Out: {"new_value":3}

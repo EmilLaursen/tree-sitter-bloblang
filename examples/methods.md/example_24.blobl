@@ -1,0 +1,4 @@
+root.new_value = this.value.replace_all("foo","dog")
+
+# In:  {"value":"The foo ate my homework"}
+# Out: {"new_value":"The dog ate my homework"}

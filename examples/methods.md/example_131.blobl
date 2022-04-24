@@ -1,0 +1,4 @@
+root.doc = this.doc.parse_xml()
+
+# In:  {"doc":"<root><title>This is a title</title><content>This is some content</content></root>"}
+# Out: {"doc":{"root":{"content":"This is some content","title":"This is a title"}}}

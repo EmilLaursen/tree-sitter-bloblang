@@ -1,0 +1,8 @@
+root.id = this.thing.id
+root.type = "yo"
+
+# Both `root` and `this` are optional, and will be inferred in their absence.
+content = thing.doc.message
+
+# In:  {"thing":{"id":"wat1","doc":{"title":"wut","message":"hello world"}}}
+# Out: {"content":"hello world","id":"wat1","type":"yo"}

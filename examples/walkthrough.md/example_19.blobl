@@ -1,0 +1,3 @@
+root.foo = this.foo.number()
+root.bar = this.bar.not_null()
+root.baz = this.baz.not_empty()

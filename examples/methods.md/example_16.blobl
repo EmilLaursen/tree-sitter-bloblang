@@ -1,0 +1,4 @@
+root.foo = "%s(%v): %v".format(this.name, this.age, this.fingers)
+
+# In:  {"name":"lance","age":37,"fingers":13}
+# Out: {"foo":"lance(37): 13"}

@@ -1,0 +1,4 @@
+root.delay_for_ns = this.delay_for.parse_duration_iso8601()
+
+# In:  {"delay_for":"P3Y6M4DT12H30M5S"}
+# Out: {"delay_for_ns":110839937000000000}

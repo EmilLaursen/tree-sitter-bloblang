@@ -1,0 +1,4 @@
+root.orders = this.orders.parse_csv()
+
+# In:  {"orders":"foo,bar\nfoo 1,bar 1\nfoo 2,bar 2"}
+# Out: {"orders":[{"bar":"bar 1","foo":"foo 1"},{"bar":"bar 2","foo":"foo 2"}]}

@@ -1,0 +1,7 @@
+root.result = this.foo.get(this.target)
+
+# In:  {"foo":{"bar":"from bar","baz":"from baz"},"target":"bar"}
+# Out: {"result":"from bar"}
+
+# In:  {"foo":{"bar":"from bar","baz":"from baz"},"target":"baz"}
+# Out: {"result":"from baz"}

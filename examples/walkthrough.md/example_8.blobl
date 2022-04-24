@@ -1,0 +1,3 @@
+let id = uuid_v4()
+root.id_sha1 = $id.hash("sha1").encode("hex")
+root.id_md5 = $id.hash("md5").encode("hex")

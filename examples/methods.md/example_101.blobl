@@ -1,0 +1,1 @@
+root = this.json_schema(file(var("BENTHOS_TEST_BLOBLANG_SCHEMA_FILE")))

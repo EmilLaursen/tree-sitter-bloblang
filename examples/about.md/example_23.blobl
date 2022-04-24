@@ -1,0 +1,2 @@
+# Filter all messages that have fewer than 10 URLs.
+root = if this.doc.urls.length() < 10 { deleted() }

@@ -1,0 +1,2 @@
+root = {}
+root.foo = this.message

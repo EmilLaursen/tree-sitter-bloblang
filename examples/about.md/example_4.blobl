@@ -1,0 +1,4 @@
+root = this.foo
+
+# In:  {"foo":"hello world"}
+# Out: hello world

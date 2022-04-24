@@ -1,0 +1,4 @@
+root = this.items.map_each(ele -> this.without("items").merge(ele))
+
+# In:  {"id":"foobar","items":[{"content":"foo"},{"content":"bar"},{"content":"baz"}]}
+# Out: [{"content":"foo","id":"foobar"},{"content":"bar","id":"foobar"},{"content":"baz","id":"foobar"}]

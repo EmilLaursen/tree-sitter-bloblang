@@ -1,0 +1,4 @@
+root.sorted = this.foo.sort()
+
+# In:  {"foo":["bbb","ccc","aaa"]}
+# Out: {"sorted":["aaa","bbb","ccc"]}

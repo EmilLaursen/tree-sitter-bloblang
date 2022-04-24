@@ -1,0 +1,3 @@
+root.foos = this.user.foos.(if this.type() == "array" { this } else {
+  throw("foos must be an array, but it ain't, what gives?")
+})

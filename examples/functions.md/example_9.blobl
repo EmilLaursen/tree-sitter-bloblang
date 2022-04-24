@@ -1,0 +1,2 @@
+root.first = random_int()
+root.second = random_int(1)

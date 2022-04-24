@@ -1,0 +1,4 @@
+root.new_value = this.value.re_replace_all("ADD ([0-9]+)","+($1)")
+
+# In:  {"value":"foo ADD 70"}
+# Out: {"new_value":"foo +(70)"}

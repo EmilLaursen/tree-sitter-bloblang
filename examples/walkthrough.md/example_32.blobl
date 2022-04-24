@@ -1,0 +1,4 @@
+root = this.talking_heads.map_each(raw -> raw.split(":").(split_string -> {
+  "id": split_string.index(0),
+  "opinions": split_string.index(1).split(",")
+}))

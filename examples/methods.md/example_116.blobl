@@ -1,0 +1,4 @@
+root.uniques = this.foo.unique()
+
+# In:  {"foo":["a","b","a","c"]}
+# Out: {"uniques":["a","b","c"]}

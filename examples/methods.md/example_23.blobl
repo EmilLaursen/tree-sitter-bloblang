@@ -1,0 +1,4 @@
+root.quoted = this.thing.quote()
+
+# In:  {"thing":"foo\nbar"}
+# Out: {"quoted":"\"foo\\nbar\""}

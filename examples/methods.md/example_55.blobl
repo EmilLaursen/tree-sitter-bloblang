@@ -1,0 +1,7 @@
+root.new_value = this.value.round()
+
+# In:  {"value":5.3}
+# Out: {"new_value":5}
+
+# In:  {"value":5.9}
+# Out: {"new_value":6}

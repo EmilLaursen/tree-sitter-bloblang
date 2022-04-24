@@ -1,0 +1,2 @@
+# Map an empty array to `foo` if the field `bar` is not a string.
+root.foo = this.bar.split(",").catch([])

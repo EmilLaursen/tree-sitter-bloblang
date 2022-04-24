@@ -1,0 +1,4 @@
+root.matches = this.value.re_find_object("(?P<key>\\w+):\\s+(?P<value>\\w+)")
+
+# In:  {"value":"option1: value1"}
+# Out: {"matches":{"0":"option1: value1","key":"option1","value":"value1"}}

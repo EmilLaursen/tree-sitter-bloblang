@@ -1,0 +1,4 @@
+root.smoothie = this.fruits.fold({}, item -> item.tally.merge(item.value))
+
+# In:  {"fruits":[{"apple":5},{"banana":3},{"orange":8}]}
+# Out: {"smoothie":{"apple":5,"banana":3,"orange":8}}

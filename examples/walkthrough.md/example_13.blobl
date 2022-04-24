@@ -1,0 +1,8 @@
+root = this
+root.pet.toys = match this.pet {
+  this.treats > 5 => this.treats - 5,
+  this.type == "cat" => 3,
+  this.type == "dog" => this.toys - 3,
+  this.type == "horse" => this.toys + 10,
+  _ => 0,
+}

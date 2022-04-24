@@ -1,0 +1,7 @@
+root.foo_len = this.foo.length()
+
+# In:  {"foo":["first","second"]}
+# Out: {"foo_len":2}
+
+# In:  {"foo":{"first":"bar","second":"baz"}}
+# Out: {"foo_len":2}

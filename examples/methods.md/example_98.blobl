@@ -1,0 +1,4 @@
+root.last_byte = this.name.bytes().index(-1)
+
+# In:  {"name":"foobar bazson"}
+# Out: {"last_byte":110}

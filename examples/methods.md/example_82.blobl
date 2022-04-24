@@ -1,0 +1,4 @@
+root = this.foo.assign(this.bar)
+
+# In:  {"foo":{"first_name":"fooer","likes":"bars"},"bar":{"second_name":"barer","likes":"foos"}}
+# Out: {"first_name":"fooer","likes":"foos","second_name":"barer"}

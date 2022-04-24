@@ -1,0 +1,12 @@
+root.doc.type = match {
+  this.exists("header.id") => "foo"
+  this.exists("body.data") => "bar"
+  _ => throw("unknown type")
+}
+root.doc.contents = (this.body.content | this.thing.body)
+
+# In:  {"header":{"id":"first"},"thing":{"body":"hello world"}}
+# Out: {"doc":{"contents":"hello world","type":"foo"}}
+
+# In:  {"nothing":"matches"}
+# Out: Error("failed assignment (line 1): unknown type")

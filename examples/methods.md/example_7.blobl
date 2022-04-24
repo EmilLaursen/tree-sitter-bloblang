@@ -1,0 +1,2 @@
+root = this
+root.foo = json("foo").from(1)

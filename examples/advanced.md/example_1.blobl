@@ -1,0 +1,16 @@
+map formatting {
+  root = this.pattern.format(this.value)
+}
+
+root.a = {
+  "value":this.a,
+  "pattern":this.pattern,
+}.apply("formatting")
+
+root.b = {
+  "value":this.b,
+  "pattern":this.pattern,
+}.apply("formatting")
+
+# In:  {"a":"foo","b":"bar","pattern":"[%v]"}
+# Out: {"a":"[foo]","b":"[bar]"}

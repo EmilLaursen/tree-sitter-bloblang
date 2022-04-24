@@ -1,0 +1,3 @@
+# Map "default" if either the element index 5 does not exist, or the underlying
+# element is `null`.
+root.foo = this.bar.index(5).or("default")

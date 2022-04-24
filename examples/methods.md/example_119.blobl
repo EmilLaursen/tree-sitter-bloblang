@@ -1,0 +1,7 @@
+root.body = this.body.bloblang(this.mapping)
+
+# In:  {"body":{"foo":"hello world"},"mapping":"root.foo = this.foo.uppercase()"}
+# Out: {"body":{"foo":"HELLO WORLD"}}
+
+# In:  {"body":{"foo":"hello world 2"},"mapping":"root.foo = this.foo.capitalize()"}
+# Out: {"body":{"foo":"Hello World 2"}}

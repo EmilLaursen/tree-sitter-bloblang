@@ -1,0 +1,3 @@
+root.foo.bar = this.message.uppercase().replace_all("WORLD", "EARTH")
+root.foo."buz me".baz = "I like mapping"
+root.foo.id = uuid_v4()

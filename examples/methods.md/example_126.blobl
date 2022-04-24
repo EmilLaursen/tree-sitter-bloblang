@@ -1,0 +1,4 @@
+root.doc = this.doc.format_yaml().string()
+
+# In:  {"doc":{"foo":"bar"}}
+# Out: {"doc":"foo: bar\n"}

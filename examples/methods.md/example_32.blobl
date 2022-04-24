@@ -1,0 +1,4 @@
+root.stripped = this.value.strip_html(["article"])
+
+# In:  {"value":"<article><p>the plain <strong>old text</strong></p></article>"}
+# Out: {"stripped":"<article>the plain old text</article>"}

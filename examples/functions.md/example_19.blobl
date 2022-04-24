@@ -1,0 +1,4 @@
+root.mapped = json("foo.bar")
+
+# In:  {"foo":{"bar":"hello world"}}
+# Out: {"mapped":"hello world"}

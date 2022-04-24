@@ -1,0 +1,14 @@
+root.new_doc = match this.doc {
+  this.type == "article" => this.article
+  this.type == "comment" => this.comment
+  _ => this
+}
+
+# In:  {"doc":{"type":"article","article":{"id":"foo","content":"qux"}}}
+# Out: {"new_doc":{"id":"foo","content":"qux"}}
+
+# In:  {"doc":{"type":"comment","comment":{"id":"bar","content":"quz"}}}
+# Out: {"new_doc":{"id":"bar","content":"quz"}}
+
+# In:  {"doc":{"type":"neither","content":"some other stuff unchanged"}}
+# Out: {"new_doc":{"type":"neither","content":"some other stuff unchanged"}}

@@ -1,0 +1,10 @@
+map things {
+  root.first  = this.thing_one
+  root.second = this.thing_two
+}
+
+root.foo = this.value_one.apply("things")
+root.bar = this.value_two.apply("things")
+
+# In:  {"value_one":{"thing_one":"hey","thing_two":"yo"},"value_two":{"thing_one":"sup","thing_two":"waddup"}}
+# Out: {"foo":{"first":"hey","second":"yo"},"bar":{"first":"sup","second":"waddup"}}

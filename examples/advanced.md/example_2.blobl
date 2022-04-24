@@ -1,0 +1,13 @@
+map unescape_values {
+  root = match {
+    this.type() == "object" => this.map_each(item -> item.value.apply("unescape_values")),
+    this.type() == "array" => this.map_each(ele -> ele.apply("unescape_values")),
+    this.type() == "string" => this.unescape_html(),
+    this.type() == "bytes" => this.unescape_html(),
+    _ => this,
+  }
+}
+root = this.apply("unescape_values")
+
+# In:  {"first":{"nested":"foo &amp; bar"},"second":10,"third":["1 &lt; 2",{"also_nested":"2 &gt; 1"}]}
+# Out: {"first":{"nested":"foo & bar"},"second":10,"third":["1 < 2",{"also_nested":"2 > 1"}]}

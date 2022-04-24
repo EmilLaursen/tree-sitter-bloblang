@@ -1,0 +1,8 @@
+root.is_big = this.number > 100
+root.multiplied = this.number * 7
+
+# In:  {"number":50}
+# Out: {"is_big":false,"multiplied":350}
+
+# In:  {"number":150}
+# Out: {"is_big":true,"multiplied":1050}

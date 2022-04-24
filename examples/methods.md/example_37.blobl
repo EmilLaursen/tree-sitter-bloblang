@@ -1,0 +1,4 @@
+root.foo = this.foo.uppercase()
+
+# In:  {"foo":"hello world"}
+# Out: {"foo":"HELLO WORLD"}

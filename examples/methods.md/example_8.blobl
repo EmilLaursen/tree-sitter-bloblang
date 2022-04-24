@@ -1,0 +1,2 @@
+root = this
+root.foo_summed = json("foo").from_all().sum()

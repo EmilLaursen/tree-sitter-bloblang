@@ -1,0 +1,4 @@
+root.new_dict = this.dict.filter(item -> item.value.contains("foo"))
+
+# In:  {"dict":{"first":"hello foo","second":"world","third":"this foo is great"}}
+# Out: {"new_dict":{"first":"hello foo","third":"this foo is great"}}

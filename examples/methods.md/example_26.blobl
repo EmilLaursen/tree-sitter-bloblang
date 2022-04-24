@@ -1,0 +1,4 @@
+root.reversed = this.thing.reverse()
+
+# In:  {"thing":"backwards"}
+# Out: {"reversed":"sdrawkcab"}

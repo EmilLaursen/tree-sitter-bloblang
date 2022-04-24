@@ -1,0 +1,10 @@
+root.result = this.foo.exists("bar.baz")
+
+# In:  {"foo":{"bar":{"baz":"yep, I exist"}}}
+# Out: {"result":true}
+
+# In:  {"foo":{"bar":{}}}
+# Out: {"result":false}
+
+# In:  {"foo":{}}
+# Out: {"result":false}

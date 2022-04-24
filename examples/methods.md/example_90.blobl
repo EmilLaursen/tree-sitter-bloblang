@@ -1,0 +1,4 @@
+root.new_nums = this.nums.filter(num -> num > 10)
+
+# In:  {"nums":[3,11,4,17]}
+# Out: {"new_nums":[11,17]}

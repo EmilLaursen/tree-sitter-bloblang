@@ -1,0 +1,9 @@
+root.new_value = this.value.replace_all_many([
+  "<b>", "&lt;b&gt;",
+  "</b>", "&lt;/b&gt;",
+  "<i>", "&lt;i&gt;",
+  "</i>", "&lt;/i&gt;",
+])
+
+# In:  {"value":"<i>Hello</i> <b>World</b>"}
+# Out: {"new_value":"&lt;i&gt;Hello&lt;/i&gt; &lt;b&gt;World&lt;/b&gt;"}

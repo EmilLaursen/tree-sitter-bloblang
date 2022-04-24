@@ -1,0 +1,4 @@
+root.sum = this.foo.sum()
+
+# In:  {"foo":[3,8,4]}
+# Out: {"sum":15}

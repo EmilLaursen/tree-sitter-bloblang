@@ -1,0 +1,4 @@
+root.sum = this.foo.fold(0, item -> item.tally + item.value)
+
+# In:  {"foo":[3,8,11]}
+# Out: {"sum":22}

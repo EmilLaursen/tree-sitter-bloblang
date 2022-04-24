@@ -1,0 +1,5 @@
+root.h1 = this.value.hash("sha1").encode("hex")
+root.h2 = this.value.hash("hmac_sha1","static-key").encode("hex")
+
+# In:  {"value":"hello world"}
+# Out: {"h1":"2aae6c35c94fcfb415dbe95f408b9ce91ee846ed","h2":"d87e5f068fa08fe90bb95bc7c8344cb809179d76"}

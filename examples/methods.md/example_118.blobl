@@ -1,0 +1,4 @@
+root = this.without("inner.a","inner.c","d")
+
+# In:  {"inner":{"a":"first","b":"second","c":"third"},"d":"fourth","e":"fifth"}
+# Out: {"e":"fifth","inner":{"b":"second"}}

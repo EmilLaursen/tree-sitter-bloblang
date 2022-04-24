@@ -1,0 +1,8 @@
+map thing {
+  root.inner = this.first
+}
+
+root.foo = this.doc.apply("thing")
+
+# In:  {"doc":{"first":"hello world"}}
+# Out: {"foo":{"inner":"hello world"}}

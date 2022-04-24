@@ -1,0 +1,4 @@
+root.foo_keys = this.foo.keys()
+
+# In:  {"foo":{"bar":1,"baz":2}}
+# Out: {"foo_keys":["bar","baz"]}

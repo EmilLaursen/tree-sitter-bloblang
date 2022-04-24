@@ -1,0 +1,4 @@
+root.doc = this.doc.parse_json()
+
+# In:  {"doc":"{\"foo\":\"bar\"}"}
+# Out: {"doc":{"foo":"bar"}}

@@ -1,0 +1,4 @@
+import "./common_maps.blobl"
+
+root.foo = this.value_one.apply("things")
+root.bar = this.value_two.apply("things")

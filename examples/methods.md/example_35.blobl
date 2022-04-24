@@ -1,0 +1,4 @@
+root.unescaped = this.value.unescape_url_query()
+
+# In:  {"value":"foo+%26+bar"}
+# Out: {"unescaped":"foo & bar"}

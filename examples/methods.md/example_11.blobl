@@ -1,0 +1,7 @@
+root.has_foo = this.thing.contains("foo")
+
+# In:  {"thing":"this foo that"}
+# Out: {"has_foo":true}
+
+# In:  {"thing":"this bar that"}
+# Out: {"has_foo":false}

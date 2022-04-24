@@ -1,0 +1,4 @@
+root.doc = content().string()
+
+# In:  {"foo":"bar"}
+# Out: {"doc":"{\"foo\":\"bar\"}"}

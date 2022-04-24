@@ -1,0 +1,8 @@
+root = this
+root.sorted_foo = if this.foo.type() == "array" { this.foo.sort() }
+
+# In:  {"foo":"foobar"}
+# Out: {"foo":"foobar"}
+
+# In:  {"foo":["foo","bar"]}
+# Out: {"foo":["foo","bar"],"sorted_foo":["bar","foo"]}

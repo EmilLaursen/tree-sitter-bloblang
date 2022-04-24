@@ -1,0 +1,8 @@
+# Delete all existing metadata
+meta = deleted()
+
+# Set a metadata value
+meta bar = "hello world"
+
+# Reference a metadata value from the input message
+root.new_doc.bar = meta("kafka_topic")

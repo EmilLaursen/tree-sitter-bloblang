@@ -1,0 +1,4 @@
+root.doc = file(env("BENTHOS_TEST_BLOBLANG_FILE")).parse_json()
+
+# In:  {}
+# Out: {"doc":{"foo":"bar"}}

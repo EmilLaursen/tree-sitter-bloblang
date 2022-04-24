@@ -1,0 +1,9 @@
+map formatting {
+  root = "(%v)".format(this)
+}
+
+root.a = this.a.apply("formatting")
+root.b = this.b.apply("formatting")
+
+# In:  {"a":"foo","b":"bar"}
+# Out: {"a":"(foo)","b":"(bar)"}

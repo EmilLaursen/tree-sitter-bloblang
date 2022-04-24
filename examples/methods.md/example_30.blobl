@@ -1,0 +1,4 @@
+root.new_value = this.value.split(",")
+
+# In:  {"value":"foo,bar,baz"}
+# Out: {"new_value":["foo","bar","baz"]}

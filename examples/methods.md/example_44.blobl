@@ -1,0 +1,7 @@
+root.matches = this.value.re_match("[0-9]")
+
+# In:  {"value":"there are 10 puppies"}
+# Out: {"matches":true}
+
+# In:  {"value":"there are ten puppies"}
+# Out: {"matches":false}

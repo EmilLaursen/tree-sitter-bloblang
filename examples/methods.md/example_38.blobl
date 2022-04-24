@@ -1,0 +1,4 @@
+root.matches = this.value.re_find_all("a.")
+
+# In:  {"value":"paranormal"}
+# Out: {"matches":["ar","an","al"]}

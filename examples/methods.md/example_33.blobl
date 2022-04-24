@@ -1,0 +1,5 @@
+root.title = this.title.trim("!?")
+root.description = this.description.trim()
+
+# In:  {"description":"  something happened and its amazing! ","title":"!!!watch out!?"}
+# Out: {"description":"something happened and its amazing!","title":"watch out"}

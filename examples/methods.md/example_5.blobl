@@ -1,0 +1,7 @@
+root = this.catch(deleted())
+
+# In:  {"doc":{"foo":"bar"}}
+# Out: {"doc":{"foo":"bar"}}
+
+# In:  not structured data
+# Out: <Message deleted>

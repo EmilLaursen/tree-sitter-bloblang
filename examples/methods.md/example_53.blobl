@@ -1,0 +1,4 @@
+root.smallest = this.values.min()
+
+# In:  {"values":[0,3,-2.5,7,5]}
+# Out: {"smallest":-2.5}

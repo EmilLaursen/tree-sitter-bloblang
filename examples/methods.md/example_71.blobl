@@ -1,0 +1,2 @@
+root.foo = this.thing.bool()
+root.bar = this.thing.bool(true)

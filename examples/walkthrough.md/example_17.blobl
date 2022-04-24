@@ -1,0 +1,5 @@
+root.abort_mission = if this.mission.type == "impossible" {
+  !this.user.motives.contains("must clear name")
+} else {
+  this.mission.difficulty > 10
+}.catch(false)

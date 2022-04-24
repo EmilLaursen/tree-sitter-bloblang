@@ -1,0 +1,4 @@
+root = this
+root.pet.treats = if this.pet.is_cute {
+  this.pet.treats + 10
+}

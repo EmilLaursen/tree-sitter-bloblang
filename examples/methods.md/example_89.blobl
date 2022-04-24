@@ -1,0 +1,4 @@
+root = this.explode("value")
+
+# In:  {"id":1,"value":{"foo":2,"bar":[3,4],"baz":{"bev":5}}}
+# Out: {"bar":{"id":1,"value":[3,4]},"baz":{"id":1,"value":{"bev":5}},"foo":{"id":1,"value":2}}

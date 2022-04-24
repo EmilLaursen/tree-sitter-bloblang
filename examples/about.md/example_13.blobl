@@ -1,0 +1,16 @@
+root.sound = if this.type == "cat" {
+  this.cat.meow
+} else if this.type == "dog" {
+  this.dog.woof.uppercase()
+} else {
+  "sweet sweet silence"
+}
+
+# In:  {"type":"cat","cat":{"meow":"meeeeooooow!"}}
+# Out: {"sound":"meeeeooooow!"}
+
+# In:  {"type":"dog","dog":{"woof":"guurrrr woof woof!"}}
+# Out: {"sound":"GUURRRR WOOF WOOF!"}
+
+# In:  {"type":"caterpillar","caterpillar":{"name":"oleg"}}
+# Out: {"sound":"sweet sweet silence"}

@@ -1,0 +1,4 @@
+root.unescaped = this.value.unescape_html()
+
+# In:  {"value":"foo &amp; bar"}
+# Out: {"unescaped":"foo & bar"}

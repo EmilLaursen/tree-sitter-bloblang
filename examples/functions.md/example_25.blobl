@@ -1,0 +1,1 @@
+root.thing.key = env("key").or("default value")

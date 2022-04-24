@@ -1,0 +1,1 @@
+root.doc.id = this.thing.id.string().catch(uuid_v4())

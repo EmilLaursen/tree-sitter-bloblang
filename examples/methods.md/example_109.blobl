@@ -1,0 +1,4 @@
+root = this.foo.merge(this.bar)
+
+# In:  {"foo":{"first_name":"fooer","likes":"bars"},"bar":{"second_name":"barer","likes":"foos"}}
+# Out: {"first_name":"fooer","likes":["bars","foos"],"second_name":"barer"}

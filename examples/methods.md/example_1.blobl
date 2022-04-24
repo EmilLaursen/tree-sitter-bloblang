@@ -1,0 +1,2 @@
+root.foo_one = this.(bar | baz).trim().replace_all(old: "dog", new: "cat")
+root.foo_two = this.(bar | baz).trim().replace_all("dog", "cat")

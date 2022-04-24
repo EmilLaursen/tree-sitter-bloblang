@@ -1,0 +1,4 @@
+root.new_value = this.value.floor()
+
+# In:  {"value":5.7}
+# Out: {"new_value":5}

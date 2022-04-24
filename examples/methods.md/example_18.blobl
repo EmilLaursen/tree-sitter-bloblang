@@ -1,0 +1,5 @@
+root.t1 = this.v1.has_suffix("foo")
+root.t2 = this.v2.has_suffix("foo")
+
+# In:  {"v1":"foobar","v2":"barfoo"}
+# Out: {"t1":false,"t2":true}

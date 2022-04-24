@@ -1,0 +1,4 @@
+root.matches = this.value.re_find_all_submatch("a(x*)b")
+
+# In:  {"value":"-axxb-ab-"}
+# Out: {"matches":[["axxb","xx"],["ab",""]]}

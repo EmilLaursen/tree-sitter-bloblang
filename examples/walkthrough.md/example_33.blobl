@@ -1,0 +1,8 @@
+map parse_talking_head {
+  let split_string = this.split(":")
+
+  root.id = $split_string.index(0)
+  root.opinions = $split_string.index(1).split(",")
+}
+
+root = this.talking_heads.map_each(raw -> raw.apply("parse_talking_head"))

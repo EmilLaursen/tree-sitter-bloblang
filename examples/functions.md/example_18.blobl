@@ -1,0 +1,1 @@
+root.doc.status = if errored() { 400 } else { 200 }

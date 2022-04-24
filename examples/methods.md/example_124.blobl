@@ -1,0 +1,4 @@
+root.encoded = this.format_msgpack().encode("base64")
+
+# In:  {"foo":"bar"}
+# Out: {"encoded":"gaNmb2+jYmFy"}

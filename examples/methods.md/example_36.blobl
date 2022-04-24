@@ -1,0 +1,4 @@
+root.unquoted = this.thing.unquote()
+
+# In:  {"thing":"\"foo\\nbar\""}
+# Out: {"unquoted":"foo\nbar"}

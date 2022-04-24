@@ -1,0 +1,5 @@
+root = this
+root.bar = deleted()
+
+# In:  {"bar":"bar_value","baz":"baz_value","foo":"foo value"}
+# Out: {"baz":"baz_value","foo":"foo value"}

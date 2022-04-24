@@ -1,0 +1,4 @@
+root.result = this.foo.fold("", item -> "%v%v".format(item.tally, item.value))
+
+# In:  {"foo":["hello ", "world"]}
+# Out: {"result":"hello world"}

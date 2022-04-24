@@ -1,0 +1,4 @@
+root.encoded = content().encode("ascii85")
+
+# In:  this is totally unstructured data
+# Out: {"encoded":"FD,B0+DGm>FDl80Ci\"A>F`)8BEckl6F`M&(+Cno&@/"}

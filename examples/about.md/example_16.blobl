@@ -1,0 +1,7 @@
+root.new_doc = match {
+  this.doc.type == "article" => this.doc.article
+  this.doc.type == "comment" => this.doc.comment
+}
+
+# In:  {"doc":{"type":"neither","content":"some other stuff unchanged"}}
+# Out: {"doc":{"type":"neither","content":"some other stuff unchanged"}}

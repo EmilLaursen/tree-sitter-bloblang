@@ -1,0 +1,4 @@
+root.index = content().index_of("meow")
+
+# In:  the cat meowed, the dog woofed
+# Out: {"index":8}

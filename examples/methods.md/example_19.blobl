@@ -1,0 +1,4 @@
+root.index = this.thing.index_of("bar")
+
+# In:  {"thing":"foobar"}
+# Out: {"index":3}

@@ -1,0 +1,4 @@
+root = this.map_each_key(key -> if key.contains("kafka") { "_" + key })
+
+# In:  {"amqp_key":"foo","kafka_key":"bar","kafka_topic":"baz"}
+# Out: {"_kafka_key":"bar","_kafka_topic":"baz","amqp_key":"foo"}

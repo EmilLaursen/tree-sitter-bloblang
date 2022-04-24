@@ -1,0 +1,4 @@
+root.new_dict = this.dict.map_each(item -> item.value.uppercase())
+
+# In:  {"dict":{"foo":"hello","bar":"world"}}
+# Out: {"new_dict":{"bar":"WORLD","foo":"HELLO"}}

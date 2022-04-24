@@ -1,0 +1,6 @@
+# Use quotes around a path segment in order to include whitespace or dots within
+# the path
+root."foo.bar".baz = this."buz bev".fub
+
+# In:  {"buz bev":{"fub":"hello world"}}
+# Out: {"foo.bar":{"baz":"hello world"}}

@@ -1,0 +1,4 @@
+root = this.encoded.decode("ascii85")
+
+# In:  {"encoded":"FD,B0+DGm>FDl80Ci\"A>F`)8BEckl6F`M&(+Cno&@/"}
+# Out: this is totally unstructured data

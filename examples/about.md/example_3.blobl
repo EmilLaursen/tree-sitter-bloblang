@@ -1,0 +1,5 @@
+# Parse a base64 encoded JSON document
+root = content().decode("base64").parse_json()
+
+# In:  eyJmb28iOiJiYXIifQ==
+# Out: {"foo":"bar"}

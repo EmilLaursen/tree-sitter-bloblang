@@ -1,0 +1,4 @@
+root.sorted = this.foo.sort(item -> item.left.v < item.right.v)
+
+# In:  {"foo":[{"id":"foo","v":"bbb"},{"id":"bar","v":"ccc"},{"id":"baz","v":"aaa"}]}
+# Out: {"sorted":[{"id":"baz","v":"aaa"},{"id":"foo","v":"bbb"},{"id":"bar","v":"ccc"}]}

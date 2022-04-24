@@ -1,0 +1,4 @@
+root.nested_json = this.string()
+
+# In:  {"foo":"bar"}
+# Out: {"nested_json":"{\"foo\":\"bar\"}"}

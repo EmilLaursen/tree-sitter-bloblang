@@ -1,0 +1,4 @@
+root = this.format_msgpack().encode("hex")
+
+# In:  {"foo":"bar"}
+# Out: 81a3666f6fa3626172

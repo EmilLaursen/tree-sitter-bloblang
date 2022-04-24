@@ -1,0 +1,4 @@
+root.foo = this.foo.append("and", "this")
+
+# In:  {"foo":["bar","baz"]}
+# Out: {"foo":["bar","baz","and","this"]}

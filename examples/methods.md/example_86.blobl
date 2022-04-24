@@ -1,0 +1,7 @@
+root.has_bar = this.thing.contains(20)
+
+# In:  {"thing":[10.3,20.0,"huh",3]}
+# Out: {"has_bar":true}
+
+# In:  {"thing":[2,3,40,67]}
+# Out: {"has_bar":false}

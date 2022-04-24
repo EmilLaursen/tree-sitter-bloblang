@@ -1,0 +1,3 @@
+root.doc.id = uuid_v4()
+root.doc.received_at = now()
+root.doc.host = hostname()

@@ -1,0 +1,4 @@
+root.doc = this.doc.format_json().string()
+
+# In:  {"doc":{"foo":"bar"}}
+# Out: {"doc":"{\n    \"foo\": \"bar\"\n}"}

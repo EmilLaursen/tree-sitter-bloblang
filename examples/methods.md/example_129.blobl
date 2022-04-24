@@ -1,0 +1,4 @@
+root = content().decode("hex").parse_msgpack()
+
+# In:  81a3666f6fa3626172
+# Out: {"foo":"bar"}

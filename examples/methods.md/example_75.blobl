@@ -1,0 +1,2 @@
+root.foo = this.thing.number() + 10
+root.bar = this.thing.number(5) * 10

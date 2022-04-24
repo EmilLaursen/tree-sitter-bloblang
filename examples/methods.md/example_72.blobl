@@ -1,0 +1,4 @@
+root.first_byte = this.name.bytes().index(0)
+
+# In:  {"name":"foobar bazson"}
+# Out: {"first_byte":102}

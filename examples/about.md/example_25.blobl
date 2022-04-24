@@ -1,0 +1,2 @@
+# Map `false` if any of the operations in this boolean query fail.
+root.thing = ( this.foo > this.bar && this.baz.contains("wut") ).catch(false)

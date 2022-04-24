@@ -1,0 +1,4 @@
+root.delay_for_ns = this.delay_for.parse_duration()
+
+# In:  {"delay_for":"50us"}
+# Out: {"delay_for_ns":50000}

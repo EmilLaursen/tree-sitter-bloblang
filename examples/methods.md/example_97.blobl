@@ -1,0 +1,4 @@
+root.last_name = this.names.index(-1)
+
+# In:  {"names":["rachel","stevens"]}
+# Out: {"last_name":"stevens"}

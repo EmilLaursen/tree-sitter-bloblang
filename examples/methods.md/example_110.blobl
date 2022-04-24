@@ -1,0 +1,5 @@
+root.beginning = this.value.slice(0, 2)
+root.end = this.value.slice(4)
+
+# In:  {"value":["foo","bar","baz","buz","bev"]}
+# Out: {"beginning":["foo","bar"],"end":["bev"]}

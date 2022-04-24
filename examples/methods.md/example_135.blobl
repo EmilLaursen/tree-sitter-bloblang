@@ -1,0 +1,4 @@
+root.decoded = this.value.decode("hex").string()
+
+# In:  {"value":"68656c6c6f20776f726c64"}
+# Out: {"decoded":"hello world"}

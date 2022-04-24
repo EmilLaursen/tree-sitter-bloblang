@@ -1,0 +1,5 @@
+root.last_chunk = this.value.slice(-2)
+root.the_rest = this.value.slice(0, -2)
+
+# In:  {"value":["foo","bar","baz","buz","bev"]}
+# Out: {"last_chunk":["buz","bev"],"the_rest":["foo","bar","baz"]}

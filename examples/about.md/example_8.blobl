@@ -1,0 +1,10 @@
+root.new_doc.type = this.thing.(article | comment | this).type
+
+# In:  {"thing":{"article":{"type":"foo"}}}
+# Out: {"new_doc":{"type":"foo"}}
+
+# In:  {"thing":{"comment":{"type":"bar"}}}
+# Out: {"new_doc":{"type":"bar"}}
+
+# In:  {"thing":{"type":"baz"}}
+# Out: {"new_doc":{"type":"baz"}}

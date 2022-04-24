@@ -1,0 +1,4 @@
+root.escaped = this.value.escape_url_query()
+
+# In:  {"value":"foo & bar"}
+# Out: {"escaped":"foo+%26+bar"}

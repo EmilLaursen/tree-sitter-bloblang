@@ -1,0 +1,7 @@
+root.new_value = [0,this.value].max()
+
+# In:  {"value":-1}
+# Out: {"new_value":0}
+
+# In:  {"value":7}
+# Out: {"new_value":7}
