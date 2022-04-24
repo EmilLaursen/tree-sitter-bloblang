@@ -30,7 +30,7 @@ module.exports = grammar({
     program: ($) => seq(repeat($._statement)),
 
     comment: ($) => token(/#.*/),
-    word: ($) => choice($.snakeCase, $.varName),
+    word: ($) => $.varName,
 
     // mapping_parser.go : func parseExecutor(pCtx Context) Func {
     _statement: ($) =>
@@ -49,47 +49,30 @@ module.exports = grammar({
         "}"
       ),
 
-    letStmt: ($) => seq("let", choice($.quotedString, $.varName), "=", $._query),
+    letStmt: ($) =>
+      seq(
+        "let",
+        field("left", choice($.quotedString, $.varName)),
+        "=",
+        field("right", $._query)
+      ),
 
     metaStmt: ($) =>
       seq("meta", choice($.quotedString, $.varName), $.assign, $._query),
 
-    assign: $ => "=",
-    assignment: ($) => seq(
-      field("left", $._path),
-      $.assign,
-      field("right", $._query),
-    ),
+    assign: ($) => "=",
+    assignment: ($) =>
+      seq(field("left", $._path), $.assign, field("right", $._query)),
 
     // TODO: test plain mapping stmt with path again!
     // see mapping_parser.go -> pathParser
     // NOTE: can not start with quoted path segment? why? check?
-    _path: ($) => seq(choice($.root, $.pathSegment), repeat(seq(".", $._fullPathSegment))),
+    _path: ($) =>
+      seq(choice($.root, $.pathSegment), repeat(seq(".", $._fullPathSegment))),
 
-    firstPathSegment: ($) => token(/[A-Za-z_][A-Za-z0-9_]*/),
     pathSegment: ($) => $.varName,
     quotedPathSegment: ($) => $.quotedString,
     _fullPathSegment: ($) => choice($.pathSegment, $.quotedPathSegment),
-
-    // rootParser := parseWithTails(Expect(
-    // 	OneOf(
-    //
-    // 		fieldLiteralRootParser(pCtx),
-    // 		functionParser(pCtx),
-    // 		bracketsExpressionParser(pCtx),
-    // 		lambdaExpressionParser(pCtx),
-    // 		variableLiteralParser(),
-    // 		literalValueParser(pCtx),
-    // 		matchExpressionParser(pCtx),
-    // 		ifExpressionParser(pCtx),
-    // 	),
-    // 	"query",
-    // ), pCtx)
-    // return func(input []rune) Result {
-    // 	res := SpacesAndTabs()(input)
-    // 	return arithmeticParser(rootParser)(res.Remaining)
-    // }
-    // TODO: arithmetic, and chained with . type expressions (parse with tails stuff)
 
     unary_query: ($) =>
       prec(
@@ -119,8 +102,8 @@ module.exports = grammar({
       );
     },
 
-    root: $ => "root",
-    this: $ => "this",
+    root: ($) => "root",
+    this: ($) => "this",
 
     _query: ($) =>
       choice(
@@ -134,8 +117,9 @@ module.exports = grammar({
         $.unary_query,
         $.binary_query,
         $.this,
+        // TODO: test root in query paths (benthos v4)
+        $.root,
         $.pathSegment,
-        // $.firstPathSegment,
         prec.right(
           PREC.primary,
           seq(
@@ -143,38 +127,34 @@ module.exports = grammar({
             repeat1(
               seq(
                 token("."),
-                choice(
-                  $.namedContext,
-                  $.methodCall,
-                  $._fullPathSegment
-                )
+                choice($.namedContext, $.methodCall, $._fullPathSegment)
               )
             )
           )
         )
       ),
 
-    namedContext: $ => seq("(", $._query, ")"),
-    methodCall: $ => $.functionExpression,
+    namedContext: ($) => seq("(", $._query, ")"),
+    methodCall: ($) => $.functionExpression,
 
     functionExpression: ($) =>
       seq(
-        field("name", $.functionName),
-        field("parameters", optional(
-          seq(
-            $._argExpression,
-            repeat(seq(",", $._argExpression))
-          ),
-        )),
-        ")",
+        field("name", alias($.varName, $.functionName)),
+        token.immediate("("),
+        field(
+          "parameters",
+          optional(seq($._argExpression, repeat(seq(",", $._argExpression))))
+        ),
+        ")"
       ),
 
     // bloblang can not mix named/nameless args
     // but for syntax highlighting we do not care?
-    _argExpression: $ => seq(
-      field("arg_name", optional($.argName)),
-      field("arg_value", alias($._query, $.argValue)),
-    ),
+    _argExpression: ($) =>
+      seq(
+        field("arg_name", optional(seq(alias($.varName, $.argName), ":"))),
+        field("arg_value", alias($._query, $.argValue))
+      ),
 
     bracketExpression: ($) =>
       seq(
@@ -184,13 +164,14 @@ module.exports = grammar({
       ),
 
     lambdaExpression: ($) =>
-    prec.right(
-      PREC.lambda,
-      seq(
-        field("arg_name", $.varName),
-        field("arrow",  "->"),
-        field("body", $._query),
-      )),
+      prec.right(
+        PREC.lambda,
+        seq(
+          field("arg_name", $.varName),
+          field("arrow", "->"),
+          field("body", $._query)
+        )
+      ),
 
     matchExpression: ($) =>
       prec(
@@ -199,22 +180,22 @@ module.exports = grammar({
           token("match"),
           field("condition", optional($._query)),
           "{",
-          repeat(
+          optional(
             seq(
               $.matchCase,
-              choice("\n", ",") // TODO: comments? is this a proper way to handle this?
+              repeat(seq(choice("\n", ","), $.matchCase)),
+              optional(choice("\n", ","))
             )
           ),
           "}"
         )
       ),
 
-
     matchCase: ($) =>
       seq(
         field("condition", choice(token("_"), $._query)),
         "=>",
-        field("consequence", $._query),
+        field("consequence", $._query)
       ),
 
     ifExpression: ($) =>
@@ -227,18 +208,14 @@ module.exports = grammar({
         optional(
           seq(
             "else",
-            field("alternative", choice($.ifExpression, seq("{", $._query, "}"))),
+            field(
+              "alternative",
+              choice($.ifExpression, seq("{", $._query, "}"))
+            )
           )
         )
       ),
 
-    // Boolean(),
-    // Number(),
-    // Null(),
-    // QuotedString(), TODO: escape sequences not handles. figure out which ones are valid in bloblang. Same as golang?
-    // TripleQuoteString(), TODO: not done.... ?
-    // dynamicArrayParser(pCtx),
-    // dynamicObjectParser(pCtx),
     _literal: ($) =>
       choice(
         $.bool,
@@ -251,10 +228,29 @@ module.exports = grammar({
       ),
 
     bool: ($) => choice("true", "false"),
-    null: ($) => token("null"),
+    null: ($) => "null",
     number: ($) => number,
     tripleQuotedString: ($) => seq('"""', repeat(choice(/./, /\n/)), '"""'),
-    quotedString: ($) => seq('"', repeat(token.immediate(/[^"]+/)), '"'),
+    quotedString: ($) =>
+      seq(
+        '"',
+        repeat(choice(token.immediate(/[^"\n\\]+/), $._escape_sequence)),
+        '"'
+      ),
+    // TODO: are these the correct  escape sequences? these are from the golang parser
+    _escape_sequence: ($) =>
+      token.immediate(
+        seq(
+          "\\",
+          choice(
+            /[^xuU]/,
+            /\d{2,3}/,
+            /x[0-9a-fA-F]{2,}/,
+            /u[0-9a-fA-F]{4}/,
+            /U[0-9a-fA-F]{8}/
+          )
+        )
+      ),
     array: ($) =>
       seq(
         "[",
@@ -272,22 +268,17 @@ module.exports = grammar({
         "{",
         optional(
           seq(
-            seq(
-              field("key", $._query), ":", field("value", $._query)
+            seq(field("key", $._query), ":", field("value", $._query)),
+            repeat(
+              seq(",", field("key", $._query), ":", field("value", $._query))
             ),
-            repeat(seq(",", field("key", $._query), ":", field("value", $._query))),
-            optional(","),
-          ),
+            optional(",")
+          )
         ),
-        "}",
+        "}"
       ),
 
     variable: ($) => seq("$", identifier),
-
-    snakeCase: ($) => token(/[a-z0-9_]+/),
-    varName: ($) => token(/[A-Za-z0-9_]+/),
-    functionName: $ => token(/[a-z0-9_]+\(/),
-    argName: $ => token(/[a-z0-9_]+:/),
-    _num: ($) => token(/[0-9]+(\.[0-9]+)?/),
+    varName: ($) => token(identifier),
   },
 });

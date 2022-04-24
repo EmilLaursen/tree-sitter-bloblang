@@ -20,7 +20,8 @@
       "scope": "source.blobl",
       "file-types": [
         "blobl"
-      ]
+      ],
+      "injection-regex": "bloblang"
     }
   ]
 }

@@ -58,6 +58,9 @@
 
 ; literals
 
+; must go before the string query below
+((object key: ((_) @property)))
+
 [
  (tripleQuotedString)
  (quotedString)
@@ -70,6 +73,5 @@
  (null)
 ] @constant.builtin
 
-((object key: ((_) @property)))
 
 (comment) @comment
